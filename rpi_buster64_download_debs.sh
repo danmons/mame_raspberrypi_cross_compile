@@ -31,4 +31,4 @@ libxml2 libxmu6 libxmuu1 libxpm4 libxrandr2 libxrandr-dev libxrender1 \
 libxrender-dev libxres1 libxshmfence1 libxslt1.1 libxss1 libxss-dev libxt6 \
 libxtables12 libxt-dev libxtst6 libxv1 libxv-dev libxvidcore4 libxxf86dga1 \
 libxxf86vm1 libxxf86vm-dev libxxhash0 libzadc4 libzstd1 qtbase5-dev \
-x11proto-dev zlib1g
+x11proto-dev zlib1g libpulse-dev
