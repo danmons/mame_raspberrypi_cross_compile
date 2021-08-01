@@ -42,7 +42,7 @@ make \
  ARCHOPTS+="-Wl,-rpath-link,${MARCHDIR}/opt/vc/lib" \
  TARGETOS=linux \
  NOASM=1 \
- OVERRIDE_CC="ccache ${MXTOOLS}/bin/${MXTARCH}-gcc" \
+ OVERRIDE_CC="${MXTOOLS}/bin/${MXTARCH}-gcc" \
  OVERRIDE_LD="${MXTOOLS}/bin/${MXTARCH}-ld" \
- OVERRIDE_CXX="ccache ${MXTOOLS}/bin/${MXTARCH}-c++" \
+ OVERRIDE_CXX="${MXTOOLS}/bin/${MXTARCH}-c++" \
  -j5
