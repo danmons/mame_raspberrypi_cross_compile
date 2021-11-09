@@ -2,9 +2,9 @@
 # force qt5
 export QT_SELECT=5
 # set paths
-export MXTARCH=aarch64-rpi3-linux-gnu
+export MXTARCH=aarch64-rpi4-linux-gnu
 export MXTOOLS=${HOME}/x-tools/${MXTARCH}
-export MARCHDIR=${HOME}/aarch64
+export MARCHDIR=${HOME}/aarch64_bullseye
 export RPIARCH=aarch64-linux-gnu
 cd ~/src/mame
 #make clean

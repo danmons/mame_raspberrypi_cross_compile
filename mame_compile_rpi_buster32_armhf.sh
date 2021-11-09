@@ -10,6 +10,7 @@ cd ~/src/mame
 #make clean
 make \
  CROSS_BUILD=1 \
+ TOOLS=1 \
  NOWERROR=1 \
  PLATFORM=arm \
  CFLAGS+="-I ${MARCHDIR}/usr/include" \
