@@ -15,3 +15,22 @@ cd ~/src/mame
  roms \
  samples \
  web \
+ castool \
+ chdman \
+ floptool \
+ imgtool \
+ jedutil \
+ ldresample \
+ ldverify \
+ nltool \
+ nlwav \
+ pngcmp \
+ regrep \
+ romcmp \
+ split \
+ srcclean \
+ testkeys \
+ unidasm \
+
+
+
