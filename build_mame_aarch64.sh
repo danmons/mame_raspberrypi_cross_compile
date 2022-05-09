@@ -1,12 +1,15 @@
 #!/bin/bash
+
 # force qt5
 export QT_SELECT=5
 # set paths
 export MDIR="$(pwd)"
 export MXTARCH=aarch64-rpi4-linux-gnu
-export MXTOOLS=${HOME}/x-tools/${MXTARCH}
-export MARCHDIR="${MDIR}/build/lib/arm64
+export MXTOOLS="${HOME}/x-tools/${MXTARCH}"
+export MARCHDIR="${MDIR}/build/lib/arm64"
 export RPIARCH=aarch64-linux-gnu
+
+source "${MDIR}/conf/settings.ini"
 
 if [ -d "${MDIR}" ]
 then

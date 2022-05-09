@@ -6,7 +6,7 @@ BDIR="${MDIR}/build"
 mkdir -p "${BDIR}"
 
 ## Install the ct-ng installer tool
-cd
+cd "${BDIR}"
 if [ -d crosstool-ng ]
 then
   cd "${BDIR}/crosstool-ng"
@@ -32,7 +32,7 @@ do
   CDIR="${BDIR}/ctng_rpi_${RPIARCH}"
   mkdir -p "${CDIR}"
   cd "${CDIR}"
-  cp "${MDIR}/crosstools-ng/ctng_config_rpi_bullseye_${RPIARCH}" .config
+  cp "${MDIR}/crosstool-ng/ctng_config_rpi_bullseye_${RPIARCH}" .config
   echo "Building the following:"
   ct-ng show-config
   sleep 1
