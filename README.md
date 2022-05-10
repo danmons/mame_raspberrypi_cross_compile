@@ -11,7 +11,7 @@ This project uses [crosstool-NG](https://github.com/crosstool-ng/crosstool-ng) t
 
 ## Install and use
 
-* Requires an "APT" based distro, or APT/dpkg tools to exist in the system.
+* Requires an "APT" based Linux distro, or APT/dpkg tools to exist in the system.
 * This is tested and working on Ubuntu 20.04 LTS, but probably works on Debian/Mint/Pop_OS/etc.  Create an issue if you find one that doesn't. 
 * Clone the project:
 ```
