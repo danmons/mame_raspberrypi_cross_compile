@@ -23,7 +23,7 @@ cd mame_raspberrypi_cross_compile
 ```
 ./install_prereqs.sh
 ```
-* Build the crosstool-NG environments (2 will be created - one for RPiOS 32bit armhf, one for RPiOS 64bit arm64/aarch64):
+* Build the crosstool-NG environments (2 will be created - one for RPiOS 32bit armhf, one for RPiOS 64bit arm64/aarch64, both of which end up in `~/x-tools`):
 ```
 ./build_crosstool-ng.sh
 ```
