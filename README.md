@@ -50,7 +50,7 @@ Copy the .7z file over to your RPi, decompress and run it.  See the official [MA
 
 You may need to install some extra packages/libraies on your RPi for this to work.  I recommend:
 ```
-sudo apt install -y libfreetype6 libsdl2-ttf-2.0-0 libsdl2-2.0-0 libqt5widgets5 libqt5gui5
+sudo apt install -y libfreetype6 libsdl2-ttf-2.0-0 libsdl2-2.0-0 libqt5widgets5 libqt5gui5 libgl1
 ```
 
 If you're not interested in compiling these, I build and release them shortly after ever mainline MAME update.  Pre-build versions are here:
