@@ -75,4 +75,4 @@ By default WSL will allow a VM to see all logical processors, however it will ca
 memory=14GB
 ```
 
-I recommend making this number your system RAM minus 2GB. Note the  [Compile speed section](#Compile-speed) section above, and in particular how to monitor your RAM so that you don't swap thrash and kill both your performance and hard disk.
+I recommend making this number your system RAM minus 2GB (the above example is used on my 16GB RAM laptop). Note the  [Compile speed section](#Compile-speed) section above, and in particular how to monitor your RAM so that you don't swap thrash and kill both your performance and hard disk.
