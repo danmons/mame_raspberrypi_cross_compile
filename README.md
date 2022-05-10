@@ -44,6 +44,18 @@ cd mame_raspberrypi_cross_compile
 
 If all goes well, within the `build` directory there will be a 7-Zipped compressed file with MAME and its necessary support files included.  By default these scripts compile the latest stable release of MAME.
 
+## Running MAME
+
+Copy the .7z file over to your RPi, decompress and run it.  See the official [MAME Documentation](https://docs.mamedev.org/) for further instructions. 
+
+You may need to install some extra packages/libraies on your RPi for this to work.  I recommend:
+```
+sudo apt install -y libfreetype6 libsdl2-ttf-2.0-0 libsdl2-2.0-0 libqt5widgets5 libqt5gui5
+```
+
+If you're not interested in compiling these, I build and release them shortly after ever mainline MAME update.  Pre-build versions are here:
+* https://stickfreaks.com/mame/
+
 ## Compile speed
 
 crosstool-NG can take a while to compile - 30 minutes to an hour per environment (2 environments built, one for 32bit, one for 64bit).  However this only needs to be done once to create the build environment. For future versions of MAME, you can keep the existined environment.
