@@ -33,7 +33,7 @@ cd mame_raspberrypi_cross_compile
 ./download_libs.sh
 ```
 * Edit `conf/settings.ini` and change the `MAMECOMPILECORES` varable for the number of parallel MAME compile jobs (see the [Compile speed section](#Compile-speed) below for RAM usage warnings).
-* Build MAME for RPiOS 64bit (recommended - see benchmarks in the [About Section](#About)):
+* Build MAME for RPiOS 64bit (recommended - see MAME benchmark links in the [About Section](#About)):
 ```
 ./build_mame_aarch64.sh
 ```
