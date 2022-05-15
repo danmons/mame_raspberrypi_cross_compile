@@ -58,7 +58,7 @@ If you're not interested in compiling these, I build and release them shortly af
 
 ## Compile speed
 
-crosstool-NG can take a while to compile - 30 minutes to an hour per environment (2 environments built, one for 32bit, one for 64bit).  However this only needs to be done once to create the build environment. For future versions of MAME, you can keep the existined environment.
+crosstool-NG can take a while to compile - 30 minutes to an hour per environment (2 environments built, one for 32bit, one for 64bit).  However this only needs to be done once to create the build environment. For future versions of MAME, you can keep the existing environment.
 
 MAME's compile time depends on how many cores you assign to the compiler (edit `conf/settings.ini` and change the `MAMECOMPILECORES` value).  Be warned that this can consume quite a lot of RAM.  It's recommended to install a tool like HTOP (`sudo apt install -y htop`) and monitor this as the compile runs.  Watch the `Mem` (Memory/RAM) row, and if the green bar consumes 100%, and the `Swp` (Swap, or on-disk virtual memory swap) begins to grow rapidly, cancel the compile job immediately with Control+C. 
 
