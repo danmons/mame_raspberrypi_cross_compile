@@ -11,12 +11,12 @@ export RPIARCH=aarch64-linux-gnu
 
 source "${MDIR}/conf/settings.ini"
 
-if [ -d "${MDIR}" ]
+if [ -d "${MARCHDIR}" ]
 then
-  echo "Found RPiOS64 libraries in ${MDIR}"
+  echo "Found RPiOS64 libraries in ${MARCHDIR}"
 else
   echo "ERROR"
-  echo "Cannot find ${MDIR}"
+  echo "Cannot find ${MARCHDIR}"
   echo "Please run ./download_libs.sh"
   exit 1
 fi
