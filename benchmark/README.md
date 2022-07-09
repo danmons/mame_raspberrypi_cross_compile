@@ -31,7 +31,7 @@ Playing games with less than 200% scores may (although is not guaranteed to) req
 ## Running the benchmarks for yourself
 
 These scripts assume: 
-* The MAME binary exists in `$HOME/games/mame`
+* The MAME binary exists in the folder `$HOME/games/mame` and is called `mame` (can be a symlink if required). 
 * The MAME config file exists in `$HOME/.mame/mame.ini` and
 * `mame.ini` has configured the `nvram_directory` path set to `$HOME/games/mame/nvram`
 
