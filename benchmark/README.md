@@ -33,7 +33,7 @@ Playing games with less than 200% scores may (although is not guaranteed to) req
 These scripts assume: 
 * The MAME binary exists in `$HOME/games/mame`
 * The MAME config file exists in `$HOME/.mame/mame.ini` and
-* `mame.ini` has configured the `nvram` path to be `$HOME/games/mame/nvram`
+* `mame.ini` has configured the `nvram_directory` path set to `$HOME/games/mame/nvram`
 
 Several of the games require an emulated system's NVRAM to be pre-populated (otherwise games tend to boot in "first boot" mode, and give a false benchmark reading).  For the handful of titles that do require this, the binary NVRAM cache is provided in this repo, and clobbers the files in the location above.  If you have existing NVRAM files that you want to keep, please back these up first.
 
