@@ -15,7 +15,7 @@ mario
 mk4
 pacman
 pinkswts
-pongf
+pong
 propcycl
 radikalb
 roadblst
@@ -24,7 +24,7 @@ rvschool
 scud
 sf2
 sfa2
-sfiii
+sfiiin
 slrasslt
 spacfury
 starblad

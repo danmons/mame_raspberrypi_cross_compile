@@ -27,15 +27,21 @@ This is an average, with high and low frame rates not produced.  As such, it's r
 
 Playing games with less than 200% scores may (although is not guaranteed to) require frameskipping in order to maintain game pace, or without frame skipping cause stuttering. That will depend highly on the individual game, and is recommended only as general guidance. 
 
+## NVRAM and game configuration overwrite warning:
+
+Several of the games require an emulated system's NVRAM to be pre-populated (otherwise games tend to boot in "first boot" mode, and give a false benchmark reading).  These are listed in `lists/nvram.txt`. For the handful of titles that do require this, the binary NVRAM cache is provided in this repo, and overwrites the files in the `cfg` and `nvram` folders.  If you have existing NVRAM/cfg files that you want to keep, please back these up first.
 
 ## Running the benchmarks for yourself
 
 These scripts assume: 
+* The MAME homepath is $HOME/games/mame
 * The MAME binary exists in the folder `$HOME/games/mame` and is called `mame` (can be a symlink if required). 
-* The MAME config file is named `$HOME/.mame/mame.ini` and
-* `mame.ini` has configured the `nvram_directory` path set to `$HOME/games/mame/nvram`
+* MAME ROMs can be found in `$HOME/games/mame/roms`
+* MAME CHDs can be found in `$HOME/games/mame/chd`
+* Game NVRAM contents can be found in `$HOME/games/mame/chd`
+* Game configuration settings can be found in `$HOME/games/mame/cfg`
 
-Several of the games require an emulated system's NVRAM to be pre-populated (otherwise games tend to boot in "first boot" mode, and give a false benchmark reading).  For the handful of titles that do require this, the binary NVRAM cache is provided in this repo, and clobbers the files in the location above.  If you have existing NVRAM files that you want to keep, please back these up first.
+You can modify this by editing the MAME_DIR value in `config.ini`.
 
 From there, the script runs through the given attempting to benchmark each game.  If an existing benchmark is found, the game is skipped.  To rebenchmark, simply delete the output file and re-run the script.
 
