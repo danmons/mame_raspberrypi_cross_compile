@@ -7,7 +7,7 @@ These are scripts I use to periodically benchmark MAME on Raspberry Pi (and mayb
 
 These should work on any POSIX system - you shoult be able to run them on any Linux or macOS system as well (not tested - submit an issue if they don't). 
 
-There are three lists provided.  The first is copied from John IV, MAMEUI author, who has been consistently benchmarking MAME over various releases and hardware for a long time, and has an excellent collection of results and data here:
+There are three lists provided.  The first is copied from John IV, MAMEUI author, who has been consistently benchmarking MAME over various releases and hardware for a long time, and has an excellent collection of modern and historic results and data here:
 * http://www.mameui.info/Bench.htm
 
 The second is the BYOAC Forums "All Killer, No Filler" list of games, which I've trimmed a little to remove some of the games that are just not possible on RPi3 and RPi4 era hardware, but hopefully still demonstrates some of the games that most people are interested in running. (If you have one you'd like added, submit an issue and I'll throw it in). 
@@ -33,8 +33,18 @@ Several of the games require an emulated system's NVRAM to be pre-populated (oth
 
 ## Running the benchmarks for yourself
 
+This is tested and working on Raspberry Pi OS Buster for RPi2 hardware, and Bullseye for RPi3 and RPi4 hardware.  Other distros may work but are untested.  Ensure you have a working desktop and GUI (MAME requires Xorg and SDL even when benchmarking without graphics). Make the directory `$HOME/games/mame`, download a copy of the MAME binary, which you can get from here:
+* https://stickfreaks.com/mame/
+
+And put it in that folder.  Run `./install_prereqs.sh` to install the pre-requisite packages required (including p7zip to decompress the MAME build linked above)
+
+When ready, run the benchmark script with a list you'd like to benchmark.  For example:
+```
+./benchmark.sh lists/gameslist_johniv.txt
+```
+
 These scripts assume: 
-* The MAME homepath is $HOME/games/mame
+* The MAME homepath is `$HOME/games/mame`
 * The MAME binary exists in the folder `$HOME/games/mame` and is called `mame` (can be a symlink if required). 
 * MAME ROMs can be found in `$HOME/games/mame/roms`
 * MAME CHDs can be found in `$HOME/games/mame/chd`
@@ -43,6 +53,13 @@ These scripts assume:
 
 You can modify this by editing the MAME_DIR value in `config.ini`.
 
-From there, the script runs through the given attempting to benchmark each game.  If an existing benchmark is found, the game is skipped.  To rebenchmark, simply delete the output file and re-run the script.
+From there, the script runs through the given attempting to benchmark each game.  If an existing benchmark output is found in the `log` directory with an Average FPS score, the game is skipped.  To rebenchmark, simply delete the output file and re-run the script.
 
-Further documentation to be provided at a later date. 
+## Creating CSV output
+
+Once all benchmarks are complete, run the create_csv script with your list of choice as an argument, for example:
+```
+./create_csv.sh lists/gameslist_johniv.txt
+```
+
+This will create a `results.csv` in the `results` folder (renaming an existing CSV file if it exists), which you can then open up in any spreadsheet tool you like. 
