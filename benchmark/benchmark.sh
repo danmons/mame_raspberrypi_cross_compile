@@ -59,7 +59,8 @@ do
       aria2c --allow-overwrite=true "${MURL}/cfg/${MROM}.cfg"
       cd -
     fi
-    ${MBIN} -bench 90 "${MROM}" >>"${TDIR}/log/${MROM}.log" 2>&1
+    # Force display out to main Xorg window for benchmarking over SSH
+    DISPLAY=:0 ${MBIN} -bench 90 "${MROM}" >>"${TDIR}/log/${MROM}.log" 2>&1
     sleep 3
   else
     echo "${MROM}" already has benchmark results in "${TDIR}/log/${MROM}.log"
