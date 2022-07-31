@@ -10,7 +10,37 @@ sleep 3
 echo "Syncing APT mirrors..."
 sudo apt-get update
 echo "Installing build tools..."
-sudo apt-get install -y build-essential gcc g++ make automake autoconf coreutils wget curl aria2 p7zip p7zip-full git flex bison texi2html texinfo xz-utils bzip2 gzip zip unzip zstd help2man libtool libtool-bin gawk
+sudo apt-get install -y \
+ aria2 \
+ autoconf \
+ automake \
+ bison \
+ build-essential \
+ bzip2 \
+ coreutils \
+ curl \
+ flex \
+ g++ \
+ gawk \
+ gcc \
+ git \
+ gzip \
+ help2man \
+ libtool \
+ libtool-bin \
+ make \
+ p7zip \
+ p7zip-full \
+ rsync \
+ texi2html \
+ texinfo \
+ unzip \
+ wget \
+ xz-utils \
+ zip \
+ zstd \
+
+
 echo "Installing MAME build requirements..."
 sudo apt-get build-dep -y mame
 
