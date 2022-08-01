@@ -22,6 +22,9 @@ mkdir -p "${ADIR}/var/lib/dpkg"
 for RARCH in armhf arm64
 do
 
+for DISTRO in buster bullseye
+do
+
   echo "__START__ download of RPi packages for architecture: ${RARCH}"
 
   # Build apt.conf
@@ -35,9 +38,9 @@ do
 
   # Build sources.list
   > "${SL}"
-  echo "deb ${DEBMIRROR} bullseye main contrib non-free" >>"${SL}"
-  echo "deb ${DEBMIRROR} bullseye-updates main contrib non-free" >>"${SL}"
-  echo "deb ${RPIMIRROR} bullseye main" >>"${SL}"
+  echo "deb ${DEBMIRROR} ${DISTRO} main contrib non-free" >>"${SL}"
+  echo "deb ${DEBMIRROR} ${DISTRO}-updates main contrib non-free" >>"${SL}"
+  echo "deb ${RPIMIRROR} ${DISTRO} main" >>"${SL}"
 
   # Set dpkg arch
   echo "${RARCH}" > "${ADIR}/var/lib/dpkg/arch"
@@ -46,7 +49,7 @@ do
   > "${ADIR}/var/lib/dpkg/status"
 
   # Prep the lib dir
-  mkdir -p "${LDIR}"/${RARCH}
+  mkdir -p "${LDIR}"/${DISTRO}_${RARCH}
 
   # Grab gpg keys for mirros
   cd "${ADIR}"
@@ -59,19 +62,20 @@ do
   apt-get -c="${ACONF}" update
 
   # Download the packages needed
-  cd "${LDIR}"/${RARCH}
-  apt-get -c="${ACONF}" download -y $( cat "${MDIR}/conf/rpi_packages_bullseye_${RARCH}" | tr '\n' ' ' )
+  cd "${LDIR}"/${DISTRO}_${RARCH}
+  apt-get -c="${ACONF}" download -y $( cat "${MDIR}/conf/rpi_packages_${DISTRO}_${RARCH}" | tr '\n' ' ' )
 
   # Extract libs to build dir
-  cd "${LDIR}"/${RARCH}
+  cd "${LDIR}"/${DISTRO}_${RARCH}
   ls -1d *deb | while read DEBFILE
   do
     echo "Extracting ${RARCH} ${DEBFILE}"
     dpkg -x "${DEBFILE}" ./
   done
 
-  echo "__FINISH__ download of RPi packages for architecture: ${RARCH}"
+  echo "__FINISH__ download of RPi packages for ${DISTRO} ${RARCH}"
 
+done
 done
 
 echo "All done"

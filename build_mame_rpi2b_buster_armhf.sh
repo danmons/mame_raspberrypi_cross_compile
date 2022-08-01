@@ -6,17 +6,17 @@ export QT_SELECT=5
 export MDIR="$(pwd)"
 export MXTARCH=armv7-rpi2-linux-gnueabihf
 export MXTOOLS="${HOME}/x-tools/${MXTARCH}"
-export MARCHDIR="${MDIR}/build/lib/armhf"
+export MARCHDIR="${MDIR}/build/lib/buster_armhf"
 export RPIARCH=arm-linux-gnueabihf
 
 source "${MDIR}/conf/settings.ini"
 
-if [ -d "${MDIR}" ]
+if [ -d "${MARCHDIR}" ]
 then
-  echo "Found RPiOS32 libraries in ${MDIR}"
+  echo "Found RPiOS32 libraries in ${MARCHDIR}"
 else
   echo "ERROR"
-  echo "Cannot find ${MDIR}"
+  echo "Cannot find ${MARCHDIR}"
   echo "Please run ./download_libs.sh"
   exit 1
 fi
@@ -96,10 +96,10 @@ make \
  ARCHOPTS+="-Wl,-rpath-link,${MARCHDIR}/opt/vc/lib" \
  TARGETOS=linux \
  NOASM=1 \
- OVERRIDE_CC="${MXTOOLS}/bin/${MXTARCH}-gcc" \
+ OVERRIDE_CC="ccache ${MXTOOLS}/bin/${MXTARCH}-gcc" \
  OVERRIDE_LD="${MXTOOLS}/bin/${MXTARCH}-ld" \
- OVERRIDE_CXX="${MXTOOLS}/bin/${MXTARCH}-c++" \
- -j${MAMECOMPILECORES}
+ OVERRIDE_CXX="ccache ${MXTOOLS}/bin/${MXTARCH}-c++" \
+ -j"${MAMECOMPILECORES}"
 
 echo "Compressing..."
 7za a -t7z -m0=lzma2 -mx=9 -mfb=64 -md=128m -ms=on -mmt=on "${MDIR}/build/mame_rpi2b_${MAMEVER}_armhf.7z" \

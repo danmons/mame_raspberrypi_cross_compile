@@ -6,7 +6,7 @@ export QT_SELECT=5
 export MDIR="$(pwd)"
 export MXTARCH=armv8-rpi3-linux-gnueabihf
 export MXTOOLS="${HOME}/x-tools/${MXTARCH}"
-export MARCHDIR="${MDIR}/build/lib/armhf"
+export MARCHDIR="${MDIR}/build/lib/bullseye_armhf"
 export RPIARCH=arm-linux-gnueabihf
 
 source "${MDIR}/conf/settings.ini"
@@ -96,9 +96,9 @@ make \
  ARCHOPTS+="-Wl,-rpath-link,${MARCHDIR}/opt/vc/lib" \
  TARGETOS=linux \
  NOASM=1 \
- OVERRIDE_CC="${MXTOOLS}/bin/${MXTARCH}-gcc" \
+ OVERRIDE_CC="ccache ${MXTOOLS}/bin/${MXTARCH}-gcc" \
  OVERRIDE_LD="${MXTOOLS}/bin/${MXTARCH}-ld" \
- OVERRIDE_CXX="${MXTOOLS}/bin/${MXTARCH}-c++" \
+ OVERRIDE_CXX="ccache ${MXTOOLS}/bin/${MXTARCH}-c++" \
  -j${MAMECOMPILECORES}
 
 echo "Compressing..."
