@@ -1,8 +1,12 @@
 crusnusa
 gradius4
 gtfore06
+mk
+mk2
+mk3
 mk4
 robotron
 scud
 slrasslt
 simpbowl
+umk3
