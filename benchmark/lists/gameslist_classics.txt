@@ -23,7 +23,6 @@ gradius
 invaders
 junofrst
 kchamp
-kinst
 kof94
 ladybug
 maglord
