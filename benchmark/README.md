@@ -13,7 +13,7 @@ There are three lists provided.  The first is copied from John IV, MAMEUI author
 The second is the BYOAC Forums "All Killer, No Filler" list of games, which I've trimmed a little to remove some of the games that are just not possible on RPi3 and RPi4 era hardware, but hopefully still demonstrates some of the games that most people are interested in running. (If you have one you'd like added, submit an issue and I'll throw it in). 
 * http://forum.arcadecontrols.com/index.php?topic=149708.0
 
-The third is a much smaller list for RPi2 era hardware.  This hardware is grossly underpowered compared to RPi3 and RPi4 era hardware, and as such not only takes a long time ot benchmark, but just isn't realistic for a great swathe fo modern titles.  As such, a more sensible list of older titles has been chosen to demonstrate what does and does not work on that older platform.
+The third is a much smaller list of "classic" games for RPi2 era hardware.  This hardware is grossly underpowered compared to RPi3 and RPi4 era hardware, and as such not only takes a long time ot benchmark, but just isn't realistic for a great amount of modern titles.  As such, a more sensible list of older titles has been chosen to demonstrate what does and does not work on that older platform. These can also then be run on RPi3 and RPi4 hardware to demonstrate the generational improvements of the platform. 
 
 ## Interpreting the results
 
