@@ -22,7 +22,7 @@ fi
 
 TDIR=$( dirname "${0}" )
 
-# Source config 
+# Source config
 source "${TDIR}/config.ini"
 
 # Build binary with all path options
@@ -60,7 +60,10 @@ do
       cd -
     fi
     # Force display out to main Xorg window for benchmarking over SSH
+    # Flush disk buffers before and after in case we crash, so we can at least save the logs
+    sync
     DISPLAY=:0 ${MBIN} -bench 90 "${MROM}" >>"${TDIR}/log/${MROM}.log" 2>&1
+    sync
     sleep 3
   else
     echo "${MROM}" already has benchmark results in "${TDIR}/log/${MROM}.log"
