@@ -26,7 +26,7 @@ make -j $(nproc) install
 ## Set ct-ng tools path
 export PATH="${BDIR}/ct-ng/bin":${PATH}
 
-## Build environments
+## Build bullseye 32/64bit environments
 for RPIARCH in armhf aarch64
 do
   CDIR="${BDIR}/ctng_rpi_${RPIARCH}"
@@ -38,3 +38,13 @@ do
   sleep 1
   ct-ng build
 done
+
+## Build Buster 32bit only
+CDIR="${BDIR}/ctng_rpi2_buster_armhf"
+mkdir -p "${CDIR}"
+cd "${CDIR}"
+cp "${MDIR}/crosstool-ng/ctng_config_rpi2b_buster_armhf" .config
+echo "Building the following:"
+ct-ng show-config
+sleep 1
+ct-ng build
