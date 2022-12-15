@@ -25,8 +25,26 @@ TDIR=$( dirname "${0}" )
 # Source config
 source "${TDIR}/config.ini"
 
+# Enable dynamic recompilation for x86 architectures only
+# Disable it for everything else, as it's not supported by MAME yet
+export MARCH=$(uname -m)
+case "${MARCH}" in
+x86_64)
+  unset NODRC
+  ;;
+i686)
+  unset NODRC
+  ;;
+i386)
+  unset NODRC
+  ;;
+*)
+  export NODRC="-nodrc"
+  ;;
+esac
+
 # Build binary with all path options
-export MBIN="${MAMEDIR}/mame -homepath ${MAMEDIR} -rompath ${MAMEDIR}/roms;${MAMEDIR}/chd -cfg_directory ${MAMEDIR}/cfg -nvram_directory ${MAMEDIR}/nvram"
+export MBIN="${MAMEDIR}/mame -homepath ${MAMEDIR} -rompath ${MAMEDIR}/roms;${MAMEDIR}/chd -cfg_directory ${MAMEDIR}/cfg -nvram_directory ${MAMEDIR}/nvram ${NODRC}"
 
 # Set the download URL for the NVRAM files
 export MURL="https://raw.githubusercontent.com/danmons/mame_raspberrypi_cross_compile/main/benchmark/files"
