@@ -14,6 +14,7 @@ if [ -d crosstool-ng ]
 then
   cd "${BDIR}/crosstool-ng"
   make clean
+  git checkout master
   git reset --hard HEAD
   git pull
 else
@@ -22,6 +23,8 @@ else
 fi
 
 cd "${BDIR}/crosstool-ng"
+# force release 1.25.0 for compatibility with Debian 11 Bullseye hosts
+git checkout crosstool-ng-1.25.0
 ./bootstrap
 ./configure --prefix="${BDIR}/ct-ng"
 make -j $(nproc) install
