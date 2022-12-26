@@ -1,5 +1,8 @@
 #!/bin/bash
 
+## crosstool-ng doesn't like LD_LIBRARY_PATH set
+unset LD_LIBRARY_PATH
+
 ## Set up build dir
 MDIR="$(pwd)"
 BDIR="${MDIR}/build"

@@ -1,5 +1,8 @@
 #!/bin/bash
 
+## crosstool-ng doesn't like LD_LIBRARY_PATH set
+unset LD_LIBRARY_PATH
+
 # force qt5
 export QT_SELECT=5
 # set paths
