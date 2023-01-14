@@ -17,6 +17,7 @@ sudo apt-get install -y \
  bison \
  build-essential \
  bzip2 \
+ ccache \
  coreutils \
  curl \
  flex \
