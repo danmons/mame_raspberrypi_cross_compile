@@ -1,0 +1,140 @@
+#!/bin/bash
+
+## crosstool-ng doesn't like LD_LIBRARY_PATH set
+unset LD_LIBRARY_PATH
+
+# force qt5
+export QT_SELECT=5
+# set paths
+export MDIR="$(pwd)"
+export MXTARCH=aarch64-rpi4-linux-gnu
+export MXTOOLS="${HOME}/x-tools/${MXTARCH}"
+export MARCHDIR="${MDIR}/build/lib/bullseye_arm64"
+export RPIARCH=aarch64-linux-gnu
+
+source "${MDIR}/conf/settings.ini"
+
+if [ -d "${MARCHDIR}" ]
+then
+  echo "Found RPiOS64 libraries in ${MARCHDIR}"
+else
+  echo "ERROR"
+  echo "Cannot find ${MARCHDIR}"
+  echo "Please run ./download_libs.sh"
+  exit 1
+fi
+
+if [ -d "${MXTOOLS}" ]
+then
+  echo "Found Crosstool-NG in ${MXTOOLS}"
+else
+  echo "ERROR"
+  echo "Cannot find Crosstool-NG"
+  echo "Please run ./build_crosstool-ng.sh"
+  exit 1
+fi
+
+echo "Preparing GroovyMAME..."
+
+mkdir -p "${MDIR}/build/src"
+cd "${MDIR}/build/src"
+
+if [ -d GroovyMAME ]
+then
+  echo "Found existing GroovyMAME src, updating it..."
+  cd "${MDIR}/build/src/GroovyMAME"
+  git clean -df
+  make clean
+  git reset --hard HEAD
+  git checkout master
+  git reset --hard HEAD
+  git pull
+  export MAMEVER=$(git tag | grep ^gm | tail -n1)
+  git checkout "${MAMEVER}"
+else
+  echo "No GroovyMAME src found, cloning from GitHub..."
+  cd "${MDIR}/build/src"
+  git clone 'https://github.com/antonioginer/GroovyMAME.git'
+  cd GroovyMAME
+  export MAMEVER=$(git tag | tail -n1)
+  git checkout "${MAMEVER}"
+fi
+
+
+echo "Building GroovyMAME"
+
+cd "${MDIR}/build/src/GroovyMAME"
+make \
+ CROSS_BUILD=1 \
+ TOOLS=1 \
+ NOWERROR=1 \
+ PLATFORM=arm64 \
+ CFLAGS+="-I ${MARCHDIR}/usr/include" \
+ CFLAGS+="-I ${MARCHDIR}/usr/include/${RPIARCH}" \
+ CFLAGS+="-L ${MARCHDIR}/usr/lib" \
+ CFLAGS+="-L ${MARCHDIR}/usr/lib/${RPIARCH}" \
+ CPPFLAGS+="-I ${MARCHDIR}/usr/include" \
+ CPPFLAGS+="-I ${MARCHDIR}/usr/include/${RPIARCH}" \
+ CPPFLAGS+="-L ${MARCHDIR}/usr/lib" \
+ CPPFLAGS+="-L ${MARCHDIR}/usr/lib/${RPIARCH}" \
+ LDFLAGS+="-L ${MARCHDIR}/usr/lib" \
+ LDFLAGS+="-L ${MARCHDIR}/usr/lib/${RPIARCH}" \
+ ARCHOPTS+="-Wl,-R,${MARCHDIR}/usr/lib" \
+ ARCHOPTS+="-Wl,-R,${MARCHDIR}/usr/lib/${RPIARCH}" \
+ ARCHOPTS+="-Wl,-R,${MARCHDIR}/lib" \
+ ARCHOPTS+="-Wl,-R,${MARCHDIR}/lib/${RPIARCH}" \
+ ARCHOPTS+="-Wl,-R,${MARCHDIR}/usr/lib/${RPIARCH}/pulseaudio" \
+ ARCHOPTS+="-Wl,-R,${MARCHDIR}/opt/vc/lib" \
+ ARCHOPTS+="-Wl,-rpath,${MARCHDIR}/usr/lib" \
+ ARCHOPTS+="-Wl,-rpath,${MARCHDIR}/usr/lib/${RPIARCH}" \
+ ARCHOPTS+="-Wl,-rpath,${MARCHDIR}/lib" \
+ ARCHOPTS+="-Wl,-rpath,${MARCHDIR}/lib/${RPIARCH}" \
+ ARCHOPTS+="-Wl,-rpath,${MARCHDIR}/usr/lib/${RPIARCH}/pulseaudio" \
+ ARCHOPTS+="-Wl,-rpath,${MARCHDIR}/opt/vc/lib" \
+ ARCHOPTS+="-Wl,-rpath-link,${MARCHDIR}/usr/lib" \
+ ARCHOPTS+="-Wl,-rpath-link,${MARCHDIR}/usr/lib/${RPIARCH}" \
+ ARCHOPTS+="-Wl,-rpath-link,${MARCHDIR}/lib" \
+ ARCHOPTS+="-Wl,-rpath-link,${MARCHDIR}/lib/${RPIARCH}" \
+ ARCHOPTS+="-Wl,-rpath-link,${MARCHDIR}/usr/lib/${RPIARCH}/pulseaudio" \
+ ARCHOPTS+="-Wl,-rpath-link,${MARCHDIR}/opt/vc/lib" \
+ TARGETOS=linux \
+ NOASM=1 \
+ OVERRIDE_CC="ccache ${MXTOOLS}/bin/${MXTARCH}-gcc" \
+ OVERRIDE_LD="${MXTOOLS}/bin/${MXTARCH}-ld" \
+ OVERRIDE_CXX="ccache ${MXTOOLS}/bin/${MXTARCH}-c++" \
+ -j${MAMECOMPILECORES}
+
+echo "Compressing..."
+7za a -t7z -m0=lzma2 -mx=9 -mfb=64 -md=128m -ms=on -mmt=on "${MDIR}/build/groovymame_rpi_${MAMEVER}_aarch64.7z" \
+ artwork \
+ bgfx \
+ castool \
+ chdman \
+ ctrlr \
+ docs \
+ floptool \
+ hash \
+ hlsl \
+ imgtool \
+ ini \
+ jedutil \
+ keymaps \
+ language \
+ ldresample \
+ ldverify \
+ mame \
+ nltool \
+ nlwav \
+ plugins \
+ pngcmp \
+ regrep \
+ romcmp \
+ roms \
+ samples \
+ split \
+ srcclean \
+ testkeys \
+ unidasm \
+ web \
+
+
