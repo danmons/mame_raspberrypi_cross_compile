@@ -51,12 +51,18 @@ do
   # Prep the lib dir
   mkdir -p "${LDIR}"/${DISTRO}_${RARCH}
 
-  # Grab gpg keys for mirros
+  # Find current signing keys
+  DEBKEY=$( curl -s "${DEBMIRROR}/pool/main/d/debian-archive-keyring/" | tr '"' '\n' | grep ^debian-archive-keyring_ | grep deb$ | sort -rgb | head -n1 )
+  RPIKEY=$( curl -s "${RPIMIRROR}/pool/main/r/raspberrypi-archive-keyring/" | tr '"' '\n' | grep ^raspberrypi-archive-keyring_ | grep deb$ | sort -rgb | head -n1 )
+
+  # Grab gpg keys for mirrors
   cd "${ADIR}"
-  wget -c "${DEBMIRROR}/pool/main/d/debian-archive-keyring/debian-archive-keyring_2021.1.1_all.deb"
-  wget -c "${RPIMIRROR}/pool/main/r/raspberrypi-archive-keyring/raspberrypi-archive-keyring_2021.1.1+rpt1_all.deb"
-  dpkg -x "debian-archive-keyring_2021.1.1_all.deb" ./
-  dpkg -x "raspberrypi-archive-keyring_2021.1.1+rpt1_all.deb" ./
+  wget -c "${DEBMIRROR}/pool/main/d/debian-archive-keyring/${DEBKEY}"
+  wget -c "${RPIMIRROR}/pool/main/r/raspberrypi-archive-keyring/${RPIKEY}"
+  ls -1d *-archive-keyring_*.deb | while read KEYFILE
+  do
+    dpkg -x "${KEYFILE}" ./
+  done
 
   # Sync apt mirror info
   apt-get -c="${ACONF}" update
