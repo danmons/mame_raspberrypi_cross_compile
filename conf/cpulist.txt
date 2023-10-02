@@ -1,28 +1,28 @@
-Board       SoC            CPU                    32  64  GCC-mtune-march
-.                                                         
-RPi1        BCM2835        ARM1176JZF-S           Y   N   arm1176jz-s
-RPi1A                                                     
-RPi1A+                                                    
-RPi1B                                                     
-RPi1B+                                                    
-RPiZero                                                   
-RPiZeroW                                                  
-.                                                         
-RPi2B       BCM2836        Cortex-A7              Y   N   cortex-a7
-.                                                         
-RPi2B-late  BCM2837        Cortex-A53             Y   Y   cortex-a53
-.                                                         
-RPi3B       BCM2837A0      Cortex-A53             Y   Y   cortex-a53
-RPi3B-late  BCM2837B0                                     
-RPi3A+      BCM2837B0                                     
-RPi3B+      BCM2837B0                                     
-.                                                         
-RPi4B       BCM2711        Cortex-A72             Y   Y   cortex-a72
-RPi400                                                    
-.                                                         
-RPiZero2W   RP3A0+BCM2837  Cortex-A53             Y   Y   cortex-a53
-.                                                         
-RPi5        BCM2712        Cortex-A76             Y   Y   cortex-a76
-.                                                         
-OPi5        RK3588S        Cortex-A76.Cortex-A55  Y   Y   cortex-a76.cortex-a55
-OPi5B                                                     
+Board       SoC            armel  armhf  aarch64  CPU                    GCC-mcpu-mtune
+.                                                                        
+RPi1        BCM2835        Y      N      N        ARM1176JZF-S           arm1176jz-s
+RPi1A                                                                    
+RPi1A+                                                                   
+RPi1B                                                                    
+RPi1B+                                                                   
+RPiZero                                                                  
+RPiZeroW                                                                 
+.                                                                        
+RPi2B       BCM2836        N      Y      N        Cortex-A7              cortex-a7
+.                                                                        
+RPi2B-late  BCM2837        N      Y      Y        Cortex-A53             cortex-a53
+.                                                                        
+RPi3B       BCM2837A0      N      Y      Y        Cortex-A53             cortex-a53
+RPi3B-late  BCM2837B0                                                    
+RPi3A+      BCM2837B0                                                    
+RPi3B+      BCM2837B0                                                    
+.                                                                        
+RPi4B       BCM2711        N      Y      Y        Cortex-A72             cortex-a72
+RPi400                                                                   
+.                                                                        
+RPiZero2W   RP3A0+BCM2837  N      Y      Y        Cortex-A53             cortex-a53
+.                                                                        
+RPi5        BCM2712        N      Y      Y        Cortex-A76             cortex-a76
+.                                                                        
+OPi5        RK3588S        N      Y      Y        Cortex-A76.Cortex-A55  cortex-a76.cortex-a55
+OPi5B                                                                    
