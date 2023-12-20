@@ -7,7 +7,7 @@ unset LD_LIBRARY_PATH
 export QT_SELECT=5
 # set paths
 export MDIR="$(pwd)"
-export MXTARCH=armv8-rpi3-linux-gnueabihf
+export MXTARCH=armv8-rpi4-linux-gnueabihf
 export MXTOOLS="${HOME}/x-tools/${MXTARCH}"
 export MARCHDIR="${MDIR}/build/lib/bullseye_armhf"
 export RPIARCH=arm-linux-gnueabihf
