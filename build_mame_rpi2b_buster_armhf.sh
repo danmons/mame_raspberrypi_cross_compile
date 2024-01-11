@@ -74,11 +74,13 @@ make \
  CFLAGS+="-L ${MARCHDIR}/usr/lib" \
  CFLAGS+="-L ${MARCHDIR}/usr/lib/${RPIARCH}" \
  CFLAGS+="-fsigned-char" \
+ CFLAGS+="-U_FORTIFY_SOURCE" \
  CPPFLAGS+="-I ${MARCHDIR}/usr/include" \
  CPPFLAGS+="-I ${MARCHDIR}/usr/include/${RPIARCH}" \
  CPPFLAGS+="-L ${MARCHDIR}/usr/lib" \
  CPPFLAGS+="-L ${MARCHDIR}/usr/lib/${RPIARCH}" \
  CPPFLAGS+="-fsigned-char" \
+ CPPFLAGS+="-U_FORTIFY_SOURCE" \
  LDFLAGS+="-L ${MARCHDIR}/usr/lib" \
  LDFLAGS+="-L ${MARCHDIR}/usr/lib/${RPIARCH}" \
  ARCHOPTS+="-Wl,-R,${MARCHDIR}/usr/lib" \
