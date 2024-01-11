@@ -73,10 +73,12 @@ make \
  CFLAGS+="-I ${MARCHDIR}/usr/include/${RPIARCH}" \
  CFLAGS+="-L ${MARCHDIR}/usr/lib" \
  CFLAGS+="-L ${MARCHDIR}/usr/lib/${RPIARCH}" \
+ CFLAGS+="-fsigned-char" \
  CPPFLAGS+="-I ${MARCHDIR}/usr/include" \
  CPPFLAGS+="-I ${MARCHDIR}/usr/include/${RPIARCH}" \
  CPPFLAGS+="-L ${MARCHDIR}/usr/lib" \
  CPPFLAGS+="-L ${MARCHDIR}/usr/lib/${RPIARCH}" \
+ CPPFLAGS+="-fsigned-char" \
  LDFLAGS+="-L ${MARCHDIR}/usr/lib" \
  LDFLAGS+="-L ${MARCHDIR}/usr/lib/${RPIARCH}" \
  ARCHOPTS+="-Wl,-R,${MARCHDIR}/usr/lib" \
