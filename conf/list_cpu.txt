@@ -1,0 +1,28 @@
+Board       SoC            armel  armhf  aarch64  GCC-mcpu-mtune
+.                                                 
+RPi1        BCM2835        Y      N      N        arm1176jz-s
+RPi1A                                             
+RPi1A+                                            
+RPi1B                                             
+RPi1B+                                            
+RPiZero                                           
+RPiZeroW                                          
+.                                                 
+RPi2B       BCM2836        N      Y      N        cortex-a7
+.                                                 
+RPi2B-late  BCM2837        N      Y      Y        cortex-a53
+.                                                 
+RPi3B       BCM2837A0      N      Y      Y        cortex-a53
+RPi3B-late  BCM2837B0                             
+RPi3A+      BCM2837B0                             
+RPi3B+      BCM2837B0                             
+.                                                 
+RPiZero2W   RP3A0+BCM2837  N      Y      Y        cortex-a53
+.                                                 
+RPi4B       BCM2711        N      Y      Y        cortex-a72
+RPi400                                            
+.                                                 
+RPi5        BCM2712        N      Y      Y        cortex-a76
+.                                                 
+OPi5        RK3588S        N      Y      Y        cortex-a76.cortex-a55
+OPi5B                                             

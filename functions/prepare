@@ -1,0 +1,57 @@
+prepare(){
+
+## crosstool-ng doesn't like LD_LIBRARY_PATH set
+unset LD_LIBRARY_PATH
+
+## Update/clone ct-ng source
+mkdir -p "${DIR_SRC}"
+cd "${DIR_SRC}" || exit 1
+if [ -d crosstool-ng ]
+then
+  cd "${DIR_SRC}/crosstool-ng" || exit 1
+  make clean
+  git checkout master
+  git reset --hard HEAD
+  git pull
+else
+  cd "${DIR_SRC}" || exit 1
+  git clone https://github.com/crosstool-ng/crosstool-ng
+fi
+
+## Check out the version we need and install it
+if [ -d "${DIR_BUILD}/ctng/${CTNGVER}" ]
+then
+  echo "${DIR_BUILD}/ctng/${CTNGVER} already exists"
+  echo 'Not overwriting!'
+  echo 'If you want to reinstall crosstool-ng itself,'
+  echo "delete/rename ${DIR_BUILD}/ctng/${CTNGVER}"
+  echo 'and re-run this tool.'
+else
+  cd "${DIR_SRC}/crosstool-ng" || exit 1
+  git checkout crosstool-ng-${CTNGVER}
+  ./bootstrap
+  ./configure --prefix="${DIR_BUILD}/ctng/${CTNGVER}"
+  make -j $(nproc) install
+fi
+
+## Build the final cross compile environment
+if [ -d "${DIR_BUILD}/ctng/${DSTR}" ]
+then
+  echo "${DIR_BUILD}/ctng/${DSTR} already exists"
+  echo 'Not overwriting!'
+  echo 'If you want to rebuild this environment,'
+  echo "delete/rename ${DIR_BUILD}/ctng/${DSTR},"
+  echo 'and re-run this tool.'
+else
+  mkdir -p "${DIR_BUILD}/ctng/${DSTR}"
+  cd "${DIR_BUILD}/ctng/${DSTR}" || exit 1
+  cp "${DIR_BASE}/conf/ctng_${DSTR}.config" .config
+  export CT_PREFIX_DIR="${DIR_BUILD}/x-tools/${DSTR}"
+  export CT_LOCAL_TARBALLS_DIR="${DIR_SRC}"
+  echo "Building the following:"
+  "${DIR_BUILD}/ctng/${CTNGVER}/bin/ct-ng" show-config
+  sleep 1
+  "${DIR_BUILD}/ctng/${CTNGVER}/bin/ct-ng" build
+fi
+
+}

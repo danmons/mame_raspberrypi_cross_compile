@@ -1,0 +1,4 @@
+help_short() {
+echo "For help, run:"
+echo "${0} -h"
+}

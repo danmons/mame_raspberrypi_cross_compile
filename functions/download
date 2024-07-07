@@ -1,0 +1,83 @@
+download() {
+ACONF="${DIR_APT}/etc/apt/apt.conf"
+SL="${DIR_APT}/etc/apt/sources.list"
+
+# Make the directory tree for APT and dpkg
+mkdir -p "${DIR_APT}/etc/apt/preferences.d"
+mkdir -p "${DIR_APT}/etc/apt/trusted.gpg.d"
+mkdir -p "${DIR_APT}/var/lib/apt/lists/auxfiles"
+mkdir -p "${DIR_APT}/var/lib/apt/lists/partial"
+mkdir -p "${DIR_APT}/var/lib/dpkg"
+mkdir -p "${DIR_APT}/var/cache/apt/archives/partial"
+mkdir -p "${DIR_APT}/usr/share/dpkg"
+
+echo "__START__ download of packages for Debian $DEBVER $DEBREL $APTARCH"
+
+# Build apt.conf
+> "${ACONF}"
+echo "Dir \"${DIR_APT}\";"               >>"${ACONF}"
+echo "APT::Architecture \"${APTARCH}\";"     >>"${ACONF}"
+echo 'APT::Architectures "";'                >>"${ACONF}"
+echo "APT::Architectures:: \"${APTARCH}\";"  >>"${ACONF}"
+
+# Build sources.list
+> "${SL}"
+echo "deb ${DEBMIRROR} ${DEBREL} main contrib non-free" >>"${SL}"
+echo "deb ${DEBMIRROR} ${DEBREL}-updates main contrib non-free" >>"${SL}"
+echo "deb ${RPIMIRROR} ${DEBREL} main" >>"${SL}"
+
+# Set dpkg arch
+echo "${APTARCH}" > "${DIR_APT}/var/lib/dpkg/arch"
+
+cat > "${DIR_APT}/usr/share/dpkg/cputable" << EOF
+arm    arm      arm.*    32  little
+arm64  aarch64  aarch64  64  little
+EOF
+
+cat > "${DIR_APT}/usr/share/dpkg/tupletable" << EOF
+eabi-uclibc-linux-arm           uclibc-linux-armel
+eabihf-musl-linux-arm           musl-linux-armhf
+ilp32-gnu-linux-arm64           arm64ilp32
+eabihf-gnu-linux-arm            armhf
+eabi-gnu-linux-arm              armel
+eabihf-gnu-kfreebsd-arm         kfreebsd-armhf
+eabi-uclibc-uclinux-arm         uclinux-armel
+EOF
+
+# Ensure status file exists
+> "${DIR_APT}/var/lib/dpkg/status"
+
+# Prep the lib dir
+mkdir -p "${DIR_LIB}/${DSTR}"
+
+# Find current signing keys
+DEBKEY=$( curl -s "${DEBMIRROR}/pool/main/d/debian-archive-keyring/" | tr '"' '\n' | grep ^debian-archive-keyring_ | grep deb$ | sort -rgb | head -n1 )
+RPIKEY=$( curl -s "${RPIMIRROR}/pool/main/r/raspberrypi-archive-keyring/" | tr '"' '\n' | grep ^raspberrypi-archive-keyring_ | grep deb$ | sort -rgb | head -n1 )
+
+# Grab gpg keys for mirrors
+cd "${DIR_APT}" || exit 1
+wget -c "${DEBMIRROR}/pool/main/d/debian-archive-keyring/${DEBKEY}"
+wget -c "${RPIMIRROR}/pool/main/r/raspberrypi-archive-keyring/${RPIKEY}"
+ls -1d *-archive-keyring_*.deb | while read KEYFILE
+do
+  dpkg -x "${KEYFILE}" ./
+done
+
+# Sync apt mirror info
+apt-get -c="${ACONF}" update
+
+# Download the packages needed
+cd "${DIR_LIB}/${DSTR}" || exit 1
+apt-get -c="${ACONF}" download -y $( cat "${DIR_BASE}/conf/packages_${DSTR}" | tr '\n' ' ' )
+
+# Extract libs to build dir
+cd "${DIR_LIB}/${DSTR}" || exit 1
+ls -1d *deb | while read DEBFILE
+do
+  echo "Extracting ${APTARCH} ${DEBFILE}"
+  dpkg -x "${DEBFILE}" ./
+done
+
+echo "__FINISH__ download of packages for Debian ${DEBVER} ${DEBREL} ${APTARCH}"
+
+}

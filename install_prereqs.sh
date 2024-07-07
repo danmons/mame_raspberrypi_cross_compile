@@ -31,6 +31,7 @@ sudo apt-get install -y \
  make \
  p7zip \
  p7zip-full \
+ python3-distutils-extra \
  rsync \
  texi2html \
  texinfo \
@@ -52,8 +53,12 @@ then
   echo '/etc/apt/sources.list , and '
   echo '/etc/apt/sources.list.d/* files'
   echo ""
+  echo 'For older style /etc/apt/sources.list :'
   echo 'Add those in by copying all "deb" lines, '
-  echo 'replace "deb" with "deb-src" on the newly copied line, '
-  echo 'and then re-run this script.'
+  echo 'replace "deb" with "deb-src" on the newly copied line.'
   echo ""
+  echo 'For newer style /etc/apt/sources.list.d/ubuntu.sources :'
+  echo 'Ensure the "Types" section has both "deb" and "deb-src" entries.'
+  echo ""
+
 fi

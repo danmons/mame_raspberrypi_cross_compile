@@ -1,0 +1,39 @@
+compress(){
+
+7za \
+ a -t7z -m0=lzma2 -mx=9 -mfb=64 -md=128m -ms=on -mmt=on -myx=9 -mf=off \
+ "${DIR_BUILD}/output/${OUTFILE}" \
+ artwork \
+ bgfx \
+ castool \
+ chdman \
+ ctrlr \
+ docs \
+ floptool \
+ hash \
+ hlsl \
+ imgtool \
+ ini \
+ jedutil \
+ keymaps \
+ language \
+ ldresample \
+ ldverify \
+ mame \
+ nltool \
+ nlwav \
+ plugins \
+ pngcmp \
+ regrep \
+ romcmp \
+ roms \
+ samples \
+ split \
+ srcclean \
+ testkeys \
+ unidasm \
+ web \
+
+
+}
+

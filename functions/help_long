@@ -1,0 +1,93 @@
+help_long() {
+echo 'Cross Compile MAME Script'
+echo 'Compile MAME or GroovyMAME for Raspberry Pi and other ARM boards on x86_64 hosts'
+echo ''
+echo 'https://github.com/danmons/mame_raspberrypi_cross_compile'
+echo ''
+
+echo 'Mandatory arguments:'
+echo ''
+
+echo '-o   Choose the operation to perform.'
+echo '     Can be one of:'
+echo '     * prepare: Prepare the crosstool-ng compile environment'
+echo '     * download: Download the necessary headers/libraries for compilation'
+echo '     * compile: Compile the chosen MAME release/fork for the chosen'
+echo '     environment (requires "prepare" and "download" steps to have been completed)'
+echo ''
+
+echo '-r   Specify the Debian release to target for compatibility'
+echo '     Can be one of:'
+echo '     * 10 or buster   (gcc 8 , glibc 2.28)'
+echo '     * 11 or bullseye (gcc 10, glibc 2.31)'
+echo '     * 12 or bookworm (gcc 12, glibc 2.36)'
+echo "     If you aren't using Debian, choose the release that best matches your gcc/glibc versions without going over."
+echo '     The latest stable release of Debian is recommended if your hardware supports it.'
+echo '     Some very old hardware requires older releases,'
+echo '     e.g.: Raspberry Pi 2B hardware requires Debian 10 Buster for video driver compatibilty.'
+echo ''
+
+echo '-a   Specify the CPU architecture'
+echo '     Can be one of:'
+echo '     * arm, armhf or arm32 - 32bit ARM with hardfloat'
+echo '     * arm64 or aarch64    - 64bit ARM, aka aarch64'
+echo '     64bit is recommended if your hardware supports it.'
+echo '     64bit is 10-15% faster for most games than 32bit.'
+echo ''
+
+echo 'Optional arguments:'
+echo ''
+
+echo '-v   Specify the MAME version'
+echo '     Should be a release number, such as 0.123'
+echo '     Defaults to the latest public release.'
+echo '     Note: very old versions may not compile'
+echo '     as this script is most concerned with recent versions.'
+echo ''
+
+echo '-f   Specify a MAME fork to build'
+echo '     Can be one of:'
+echo '     * mame (default)'
+echo '     * groovymame (includes switchres and GroovyMiSTer support)'
+echo ''
+
+echo '-c   Specify the number of CPUs to use in parallel during compiling'
+echo '     Defauls depend on system RAM:'
+echo '     * 4GB RAM   = 1 CPU'
+echo '     * 8GB RAM   = 2 CPUs'
+echo '     * 16GB RAM  = 4 CPUs'
+echo '     * 32+GB RAM = all CPUs'
+echo '     MAME requires a lot of RAM to compile.'
+echo '     Setting this too high will create more parallel compile jobs,'
+echo '     and your system will swap thrash and/or OOM.'
+echo ''
+
+echo '-h   Print this help message.'
+echo ''
+
+echo 'Example:'
+echo 'To compile the latest stable MAME for the Raspberry Pi 3/4/5,'
+echo 'or Orange Pi 5/5B hardware running Debian 12 Bookworm 64bit,'
+echo 'run:'
+echo '# Prepare the crosstool-ng environment:'
+echo "${0} -o prepare  -r 12 -a arm64"
+echo '# Download the libraries/headers needed for compilation:'
+echo "${0} -o download -r 12 -a arm64"
+echo '# Compile MAME:'
+echo "${0} -o compile  -r 12 -a arm64"
+echo ''
+
+echo 'Output:'
+echo 'Output files should appear in the build/output folder.'
+echo 'These will be labelled with the application name, version, architecture and Debian release compatibility.'
+echo 'The output will be compressed with 7-Zip.'
+echo 'Decompress anywhere you like and run the binary in the top level directory.'
+echo ''
+
+echo 'Requirements:'
+echo 'To run, this script needs a number of tools pre-installed.'
+echo 'The provided "install_prereqs.sh" file will install these for Debian or Ubuntu hosts.'
+echo 'Other distros will need equivalent packages listed in that file installed.'
+echo ''
+
+}

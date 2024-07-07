@@ -1,0 +1,25 @@
+cpu_ram_ratio(){
+
+CPUS=1
+
+## `free -g` truncates RAM, often reporting 1GiB less than installed total
+## So we compare -gt (total-2)
+
+MEM=$(free -g | grep ^Mem | awk '{print $2}')
+
+if [ "${MEM}" -gt "6" ]
+then
+  CPUS=2
+fi
+
+if [ "${MEM}" -gt "14" ]
+then    
+  CPUS=4
+fi
+
+if [ "${MEM}" -gt "30" ]
+then    
+  CPUS=$(nproc)
+fi
+
+}

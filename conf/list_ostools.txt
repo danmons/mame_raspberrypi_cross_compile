@@ -1,0 +1,35 @@
+OS package versions
+updated 2024-07-04
+
+Debian 10 Buster
+deb-kernel 4.19
+rpi-kernel 5.10
+binutils 2.31
+gcc 8.3
+glibc 2.28
+gdb 8.2
+expat 2.2
+gettext 0.19
+gmp 6.1
+
+Debian 11 Bullseye
+deb-kernel 5.10
+rpi-kernel 6.1
+binutils 2.35
+gcc 10.2
+glibc 2.31
+gdb 10.1
+expat 2.2
+gettext 0.21
+gmp 6.2
+
+Debian 12 Bookworm
+deb-kernel 6.1
+rpi-kernel 6.6
+binutils 2.40
+gcc 12.2
+glibc 2.36
+gdb 13.1
+expat 2.5
+gettext 0.21
+gmp 6.2

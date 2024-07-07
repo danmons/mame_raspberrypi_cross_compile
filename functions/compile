@@ -1,0 +1,175 @@
+compile(){
+
+## crosstool-ng doesn't like LD_LIBRARY_PATH set
+unset LD_LIBRARY_PATH
+
+# force qt5
+export QT_SELECT=5
+
+## Find cross-compile tools
+GCCBIN=$( ls -1d ${DIR_BUILD}/x-tools/${DSTR}/bin/*-gcc )
+GPPBIN=$( ls -1d ${DIR_BUILD}/x-tools/${DSTR}/bin/*-g++ )
+LDBIN=$(  ls -1d ${DIR_BUILD}/x-tools/${DSTR}/bin/*-ld.gold )
+
+## Set linker path
+MLIB="${DIR_LIB}/${DSTR}"
+
+echo "Preparing MAME..."
+
+mkdir -p "${DIR_BUILD}/src"
+cd "${DIR_BUILD}/src" || exit 1
+
+if [ -d "${MAMEFORK}" ]
+then
+  echo "Found existing "${MAMEFORK}" src, updating it..."
+  cd "${DIR_BUILD}/src/${MAMEFORK}" || exit 1
+  git clean -dfx
+  make clean
+  git reset --hard HEAD
+  git checkout master
+  git pull --recurse-submodules=yes
+else
+  echo "No ${MAMEFORK} source found, cloning from GitHub..."
+  cd "${DIR_BUILD}/src" || exit 1
+  git clone --recursive "${GIT}" "${MAMEFORK}"
+fi
+
+## Check out the correct tag
+## MAME tags are in the form mame0123 for MAME 0.123
+## GroovyMAME tags are in the form gm0123sr321a for GroovyMAME 0.123 with Switchres 3.2.1
+
+cd "${DIR_BUILD}/src/${MAMEFORK}" || exit 1
+# MAME
+if [ "${MAMEFORK}" == "mame" ]
+then
+  if [ "${MAMEVER}" == "latest" ]
+  then
+    MAMETAG=$(git tag | grep ^mame | tail -n1)
+    MAMENUM=0.$( echo ${MAMETAG} | awk -F '0' '{print $2}')
+  else
+    MAMESUFF=$(echo ${MAMEVER} | tr -d '.')
+    MAMETAG=mame${MAMESUFF}
+    MAMENUM=${MAMEVER}
+  fi
+elif  [ "${MAMEFORK}" == "groovymame" ]
+then
+  if [ "${MAMEVER}" == "latest" ]
+  then
+    MAMETAG=$(git tag | grep ^gm | tail -n1)
+    MAMENUM=0.$( echo ${MAMETAG} | awk -F '0' '{print $2}'| awk -F 's' '{print $1}' )
+  else
+    MAMESUFF=$(echo ${MAMEVER} | tr -d '.')
+    MAMETAG=$(git tag | grep ^gm | grep ${MAMESUFF} | tail -n1)
+    MAMENUM=${MAMEVER}
+  fi
+else
+  echo "${MAMEFORK} unable to find tag for version ${MAMEVER}"
+  exit 1
+fi
+
+git checkout ${MAMETAG}
+
+echo "Building MAME"
+
+cd "${DIR_BUILD}/src/${MAMEFORK}" || exit 1
+
+if [ "${APTARCH}" == armhf ]
+then
+  MAMEPLATFORM=arm
+elif [ "${APTARCH}" == arm64 ]
+then
+  MAMEPLATFORM=arm64
+else
+  echo "Unable to build for platform ${APTARCH}"
+  exit 1
+fi
+
+echo "Source code for ${MAMEFORK} version ${MAMETAG} ready to be compiled for ${DSTR}"
+
+mkdir -p "${DIR_BUILD}/output"
+OUTFILE="${MAMEFORK}_${MAMENUM}_${DSTR}.7z"
+if [ -f "${DIR_BUILD}/output/${OUTFILE}" ]
+then
+  echo "${DIR_BUILD}/output/${OUTFILE} exists, not overwriting"
+  echo "To rebuild, rename or delete ${DIR_BUILD}/output/${OUTFILE}"
+  echo "and re-run this script"
+  exit 1
+fi
+
+echo "Compiling with"
+echo "gcc : ${GCCBIN}"
+echo "g++ : ${GPPBIN}"
+echo "ld  : ${LDBIN}"
+
+CUSTOMLDFLAGS=""
+
+if [ "${APTARCH}" == "armhf" ]
+then
+  CUSTOMLDFLAGS+=" -Wl,--long-plt"
+fi
+
+make clean
+
+make \
+ REGENIE=1 \
+ CROSS_BUILD=1 \
+ TOOLS=1 \
+ NOWERROR=1 \
+ PLATFORM=${MAMEPLATFORM} \
+ CFLAGS+=" -I ${MLIB}/usr/include" \
+ CFLAGS+=" -I ${MLIB}/usr/include/${LINARCH}" \
+ CFLAGS+=" -L ${MLIB}/usr/lib" \
+ CFLAGS+=" -L ${MLIB}/usr/lib/${LINARCH}" \
+ CFLAGS+=" -fsigned-char" \
+ CFLAGS+=" -U_FORTIFY_SOURCE" \
+ CPPFLAGS+=" -I ${MLIB}/usr/include" \
+ CPPFLAGS+=" -I ${MLIB}/usr/include/${LINARCH}" \
+ CPPFLAGS+=" -L ${MLIB}/usr/lib" \
+ CPPFLAGS+=" -L ${MLIB}/usr/lib/${LINARCH}" \
+ CPPFLAGS+=" -fsigned-char" \
+ CPPFLAGS+=" -U_FORTIFY_SOURCE" \
+ LDFLAGS+=" -L ${MLIB}/usr/lib" \
+ LDFLAGS+=" -L ${MLIB}/usr/lib/${LINARCH}" \
+ LDFLAGS+=" -fuse-ld=gold" \
+ LDFLAGS+=" ${CUSTOMLDFLAGS}" \
+ ARCHOPTS+=" -Wl,-R,${MLIB}/usr/lib" \
+ ARCHOPTS+=" -Wl,-R,${MLIB}/usr/lib/${LINARCH}" \
+ ARCHOPTS+=" -Wl,-R,${MLIB}/lib" \
+ ARCHOPTS+=" -Wl,-R,${MLIB}/lib/${LINARCH}" \
+ ARCHOPTS+=" -Wl,-R,${MLIB}/usr/lib/${LINARCH}/pulseaudio" \
+ ARCHOPTS+=" -Wl,-R,${MLIB}/opt/vc/lib" \
+ ARCHOPTS+=" -Wl,-rpath,${MLIB}/usr/lib" \
+ ARCHOPTS+=" -Wl,-rpath,${MLIB}/usr/lib/${LINARCH}" \
+ ARCHOPTS+=" -Wl,-rpath,${MLIB}/lib" \
+ ARCHOPTS+=" -Wl,-rpath,${MLIB}/lib/${LINARCH}" \
+ ARCHOPTS+=" -Wl,-rpath,${MLIB}/usr/lib/${LINARCH}/pulseaudio" \
+ ARCHOPTS+=" -Wl,-rpath,${MLIB}/opt/vc/lib" \
+ ARCHOPTS+=" -Wl,-rpath-link,${MLIB}/usr/lib" \
+ ARCHOPTS+=" -Wl,-rpath-link,${MLIB}/usr/lib/${LINARCH}" \
+ ARCHOPTS+=" -Wl,-rpath-link,${MLIB}/lib" \
+ ARCHOPTS+=" -Wl,-rpath-link,${MLIB}/lib/${LINARCH}" \
+ ARCHOPTS+=" -Wl,-rpath-link,${MLIB}/usr/lib/${LINARCH}/pulseaudio" \
+ ARCHOPTS+=" -Wl,-rpath-link,${MLIB}/opt/vc/lib" \
+ TARGETOS=linux \
+ NOASM=1 \
+ OVERRIDE_CC="${GCCBIN}" \
+ OVERRIDE_LD="${LDBIN}" \
+ OVERRIDE_CXX="${GPPBIN}" \
+ -j${CPUS}
+
+
+if [ "$?" ]
+then
+  echo "Compile successful"
+  echo "Compressing to ${DIR_BUILD}/output/${OUTFILE}"
+  source "${DIR_FUNC}/compress"
+  compress
+  echo "All done." 
+else
+  echo "Compile failed"
+  echo "Check the contents of the log file:"
+  echo "${DIR_BUILD}/log/${OPERATION}_${DSTR}.log"
+  exit 1
+fi
+
+}
