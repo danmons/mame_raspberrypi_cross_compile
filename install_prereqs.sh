@@ -26,6 +26,7 @@ sudo apt-get install -y \
  git \
  gzip \
  help2man \
+ libncurses-dev \
  libtool \
  libtool-bin \
  make \
