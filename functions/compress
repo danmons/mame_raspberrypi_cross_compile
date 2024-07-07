@@ -1,5 +1,17 @@
 compress(){
 
+## 7zip flags:
+## -t7z : set container type to 7z
+## -m0=lzma2 : set compression method to lzma2
+## -mx=9 : set compression level to 9 (ultra/highest)
+## -mfb=64 : set number of fast bytes for deflate (default 32)
+## -md=128m : set dictionary size (default 64mb for lzma2 ultra)
+## -ms=on : set solid mode on for better compression (neighbouring files can be compared)
+## -mmt=on : set multithreading. Scales poorly though, 2x most of the time, 4x at best. 
+## -myx=9 : turn on detailed file analysis for better compression
+## -mf=off : disable compression filters.  7zip 23.xx added ARM/ARM64 filters which offer better compression, however break compatibility with 7zip 16.xx in older Debian builds
+## Testing at 2024-07-06, -mf=on results in a ~90MB 7z file (requires 7zip 23.xx to decompress), and -mf=off results in a ~100MB 7z file (compatible with old 7zip builds). 
+
 7za \
  a -t7z -m0=lzma2 -mx=9 -mfb=64 -md=128m -ms=on -mmt=on -myx=9 -mf=off \
  "${DIR_BUILD}/output/${OUTFILE}" \
