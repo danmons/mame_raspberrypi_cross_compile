@@ -7,7 +7,7 @@ The [MAME project](https://github.com/mamedev/mame) now runs quite well on Raspb
 
 Compiling MAME on a Raspberry Pi 4, even with the largest 8GB RAM model available, can take a very long time.  The biggest issue being RAM limitations, as running `make -j4` can consume far more than 8GB RAM, causing the Pi to swap and crawl to a halt.  Compiling with `make -j2` works around this, but is slow.  Compiling on a much faster x86_64 machine with lots of RAM is much more convienent.
 
-This project uses [crosstool-NG](https://github.com/crosstool-ng/crosstool-ng) to build 2 cross-compilation environments, and allow easy building of the latest MAME binaries on a fast x86_64 machine.
+This project uses [crosstool-ng](https://github.com/crosstool-ng/crosstool-ng) to build 2 cross-compilation environments, and allow easy building of the latest MAME binaries on a fast x86_64 machine.
 
 ## MAME forks supported
 
@@ -46,14 +46,14 @@ Mandatory arguments:
 
 * `-o` : the operation to choose.  Must be one of:
   * `download` : Download libraries and headers to be used during compiling and linking
-  * `prepare` : Prepare the Crosstool-NG environment
+  * `prepare` : Prepare the crosstool-ng environment
   * `compile` : Compile your chosen MAME version/fork
 * `-r` : Debian release to target for comaptibilit.  Must be one of:
   * `10` or `buster` , with gcc 8 and glibc 2.28 (currently not working, as MAME requires gcc 10.3 minimum)
   * `11` or `bullseye` , with gcc 10 and glibc 2.31
   * `12` or `bookworm` , with gcc 12 and glibc 2.36
 * `-a` : the architecture to target.  Must be one of:
-  * `arm`, `armhf` or `arm32` -  32bit ARM with hardfloa (older ARM processors without hardware floating point are not supported)
+  * `arm`, `armhf` or `arm32` -  32bit ARM with hardfloat/FPU (older ARM processors without a hardware floating point unit are not supported)
   * `arm64` or `aarch64` - 64bit ARM
 
 Optional arguments:
@@ -64,7 +64,7 @@ Optional arguments:
 * `-v` : The version of MAME to target.  Can be one of:
   * `latest` - default
   * A version number, such as `0.123` (note that old versions may not compile correctly, as this script targets the current version always)
-* `-c` : The number of CPUs to use for parallel compilation.  Note that compiling MAME is very RAM intensive, and a high CPU count may cause your machine to swap thrash and/or OOM. By default, CPU counts chose are:
+* `-c` : The number of CPUs to use for parallel compilation.  Note that compiling MAME is very RAM intensive, and a high CPU count may cause your machine to swap thrash and/or OOM. By default, CPU counts chosen are:
   * 4 GB RAM = 1 CPU
   * 8 GB RAM = 2 CPUs
   * 16 GB RAM = 4 CPUs
