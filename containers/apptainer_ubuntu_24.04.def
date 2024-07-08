@@ -1,0 +1,52 @@
+Bootstrap: docker
+From: ubuntu:24.04
+
+## Apptainer userspace container definition file.
+## Use this to build an Apptainer SIF container.
+## More info here:
+## https://apptainer.org
+
+## Image is based on the minimal Ubuntu 24.04 LTS build from Dockerhub,
+## and further changes are added below.
+## Note that all timezone and repo mirror settings below are Brisbane, Australia.
+## Set yours to your local timezone.
+
+%post
+  ## Fix timezone nonsense
+  dpkg-reconfigure debconf -f noninteractive -p critical
+  echo "tzdata tzdata/Areas select Australia" | debconf-set-selections
+  echo "tzdata tzdata/Zones/Australia select Brisbane" | debconf-set-selections
+  echo "tzdata tzdata/Areas select Australia" >> /tmp/preseed.cfg
+  echo "tzdata tzdata/Zones/Australia select Brisbane" >> /tmp/preseed.cfg
+  debconf-set-selections /tmp/preseed.cfg
+  rm -f /etc/timezone /etc/localtime
+  echo "Australia/Brisbane" > /etc/timezone
+  ## Set Debian mirrors for OS package installs
+  > /etc/apt/sources.list
+  > /etc/apt/sources.list.d/ubuntu.sources
+  echo 'Types: deb deb-src' >> /etc/apt/sources.list.d/ubuntu.sources
+  echo 'URIs: http://mirror.aarnet.edu.au/pub/ubuntu/archive' >> /etc/apt/sources.list.d/ubuntu.sources
+  echo 'Suites: noble noble-updates noble-security noble-backports' >> /etc/apt/sources.list.d/ubuntu.sources
+  echo 'Components: main restricted universe multiverse' >> /etc/apt/sources.list.d/ubuntu.sources
+  echo 'Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg' >> /etc/apt/sources.list.d/ubuntu.sources
+  apt-get clean
+  apt-get update
+  TZ="Australia/Brisbane" DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata apt-utils
+  ## Unminimise Ubuntu to allow man pages
+  yes | unminimize
+  ## apply all Ubuntu security updates on build
+  DEBIAN_FRONTEND=noninteractive apt-get dist-upgrade -y
+  ## stop iperf3 asking for user input at install time
+  DEBIAN_FRONTEND=noninteractive apt-get install -y iperf3
+  ## install useful Linux tools
+  apt-get install -y apt-file
+  apt-file update
+  apt-get install -y nano vim libncurses-dev man-db manpages python3-distutils-extra
+  apt-get install -y iputils-ping iputils-tracepath htop iftop telnet
+  apt-get install -y aria2 autoconf automake bison build-essential bzip2 coreutils curl flex g++ gawk gcc git gzip help2man libtool libtool-bin make p7zip p7zip-full rsync texi2html texinfo unzip wget xz-utils zip zstd
+  apt-get build-dep -y mame
+
+%environment
+  export LC_ALL=C
+  export DEBIAN_FRONTEND=noninteractive
+  export TZ="Australia/Brisbane"
