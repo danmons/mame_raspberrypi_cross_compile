@@ -52,7 +52,7 @@ Mandatory arguments:
   * `10` or `buster` , with gcc 8 and glibc 2.28 (currently not working, as MAME requires gcc 10.3 minimum)
   * `11` or `bullseye` , with gcc 10 and glibc 2.31
   * `12` or `bookworm` , with gcc 12 and glibc 2.36
-* `-a` : the architecture to target.  Must be noe of:
+* `-a` : the architecture to target.  Must be one of:
   * `arm`, `armhf` or `arm32` -  32bit ARM with hardfloa (older ARM processors without hardware floating point are not supported)
   * `arm64` or `aarch64` - 64bit ARM
 
