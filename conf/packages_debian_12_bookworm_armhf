@@ -24,7 +24,6 @@ libgbm1
 libgbm-dev
 libgcrypt20
 libgl1
-libgl-dev
 libgles1
 libgles2
 libgles2-mesa
@@ -36,6 +35,7 @@ libglvnd0
 libglx0
 libglx-dev
 libglx-mesa0
+libgl-dev
 libgpg-error0
 libgraphite2-3
 libgssapi-krb5-2
@@ -44,8 +44,8 @@ libice6
 libicu72
 libk5crypto3
 libkeyutils1
-libkrb5-3
 libkrb5support0
+libkrb5-3
 liblz4-1
 liblzma5
 libmd0
@@ -86,6 +86,7 @@ libvorbis0a
 libvorbisenc2
 libwayland-client0
 libwayland-cursor0
+libwayland-dev
 libwayland-egl1
 libwayland-server0
 libwrap0
@@ -134,9 +135,9 @@ libxfixes-dev
 libxfont2
 libxft2
 libxi6
-libxi-dev
 libxinerama1
 libxinerama-dev
+libxi-dev
 libxkbcommon0
 libxkbcommon-dev
 libxkbcommon-x11-0
@@ -157,11 +158,11 @@ libxss1
 libxss-dev
 libxt6
 libxtables12
-libxt-dev
 libxtst6
+libxt-dev
 libxv1
-libxv-dev
 libxvidcore4
+libxv-dev
 libxxf86dga1
 libxxf86vm1
 libxxf86vm-dev
