@@ -49,7 +49,7 @@ Mandatory arguments:
   * `prepare` : Prepare the crosstool-ng environment
   * `compile` : Compile your chosen MAME version/fork
 * `-r` : Debian release to target for comaptibilit.  Must be one of:
-  * `10` or `buster` , with gcc 8 and glibc 2.28 (currently not working, as MAME requires gcc 10.3 minimum)
+  * `10` or `buster` , with gcc 8 and glibc 2.28 (up to MAME 0.264. Later versions will not work due to newer software requirements)
   * `11` or `bullseye` , with gcc 10 and glibc 2.31
   * `12` or `bookworm` , with gcc 12 and glibc 2.36
 * `-a` : the architecture to target.  Must be one of:
