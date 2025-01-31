@@ -151,7 +151,6 @@ make \
  ARCHOPTS+=" -Wl,-rpath-link,${MLIB}/usr/lib/${LINARCH}/pulseaudio" \
  ARCHOPTS+=" -Wl,-rpath-link,${MLIB}/opt/vc/lib" \
  TARGETOS=linux \
- NOASM=1 \
  OVERRIDE_CC="${GCCBIN}" \
  OVERRIDE_LD="${LDBIN}" \
  OVERRIDE_CXX="${GPPBIN}" \
