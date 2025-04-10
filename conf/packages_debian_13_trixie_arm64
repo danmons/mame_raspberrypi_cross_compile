@@ -1,5 +1,5 @@
 apulse
-libasound2
+libasound2t64
 libasound2-dev
 libasyncns0
 libbrotli1
@@ -18,7 +18,6 @@ libfontconfig1
 libfontconfig1-dev
 libfontconfig-dev
 libfreetype6
-libfreetype6-dev
 libfreetype-dev
 libgbm1
 libgbm-dev
@@ -28,7 +27,7 @@ libgles-dev
 libgles1
 libgles2
 libglew2.2
-libglib2.0-0
+libglib2.0-0t64
 libglib2.0-dev
 libglu1-mesa
 libglvnd0
@@ -51,18 +50,18 @@ liblzma5
 libmd0
 libmd4c0
 libmp3lame0
-libmpg123-0
+libmpg123-0t64
 libnsl2
 libogg0
 libopus0
 libpcre2-8-0
 libpcre2-16-0
-libpng16-16
+libpng16-16t64
 libpulse0
 libpulse-dev
-libqt5core5a
-libqt5gui5
-libqt5widgets5
+libqt5core5t64
+libqt5gui5t64
+libqt5widgets5t64
 libraspberrypi0
 libraspberrypi-bin
 libraspberrypi-dev
