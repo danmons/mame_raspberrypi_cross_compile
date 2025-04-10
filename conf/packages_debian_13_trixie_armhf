@@ -24,9 +24,9 @@ libgbm1
 libgbm-dev
 libgcrypt20
 libgl1
+libgles-dev
 libgles1
 libgles2
-libgles2-mesa
 libglew2.2
 libglib2.0-0
 libglib2.0-dev
@@ -57,7 +57,6 @@ libogg0
 libopus0
 libpcre2-8-0
 libpcre2-16-0
-libpcre3
 libpng16-16
 libpulse0
 libpulse-dev
@@ -95,7 +94,7 @@ libx11-data
 libx11-dev
 libx11-xcb1
 libx264-164
-libx265-199
+libx265-215
 libxau6
 libxau-dev
 libxaw7
