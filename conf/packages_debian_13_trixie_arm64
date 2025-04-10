@@ -13,7 +13,7 @@ libdrm2
 libdrm-dev
 libexpat1
 libffi8
-libflac12
+libflac14
 libfontconfig1
 libfontconfig1-dev
 libfontconfig-dev
@@ -78,7 +78,7 @@ libsm6
 libsndfile1
 libsndio7.0
 libsystemd0
-libtirpc3
+libtirpc3t64
 libuuid1
 libvorbis0a
 libvorbisenc2
@@ -154,7 +154,7 @@ libxshmfence1
 libxslt1.1
 libxss1
 libxss-dev
-libxt6
+libxt6t64
 libxtables12
 libxtst6
 libxt-dev
