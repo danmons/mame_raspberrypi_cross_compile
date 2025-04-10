@@ -53,6 +53,14 @@ do
           DEBVER=12
           DEBREL=bookworm
           ;;
+        13)
+          DEBVER=13
+          DEBREL=trixie
+          ;;
+        trixie)
+          DEBVER=13
+          DEBREL=trixie
+          ;;
         *)
           echo "Invalid Debian release: -r ${OPTARG}"
           help_short
@@ -151,6 +159,7 @@ fi
 ## Debian 10 buster   requires ctng 1.25.0
 ## Debian 11 bullseye requires ctng 1.25.0
 ## Debian 12 bookworm requires ctng 1.26.0
+## Debian 13 trixie   requires ctng 1.27.0
 if [ "$DEBVER" == "10" ]
 then
   CTNGVER="1.25.0"
@@ -160,6 +169,9 @@ then
 elif [ "$DEBVER" == "12" ]
 then
   CTNGVER="1.26.0"
+elif [ "$DEBVER" == "13" ]
+then
+  CTNGVER="1.27.0"
 fi
 
 DSTR="debian_${DEBVER}_${DEBREL}_${APTARCH}"
