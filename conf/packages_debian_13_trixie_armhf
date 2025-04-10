@@ -40,7 +40,7 @@ libgraphite2-3
 libgssapi-krb5-2
 libharfbuzz0b
 libice6
-libicu72
+libicu76
 libk5crypto3
 libkeyutils1
 libkrb5support0
@@ -62,9 +62,6 @@ libpulse-dev
 libqt5core5t64
 libqt5gui5t64
 libqt5widgets5t64
-libraspberrypi0
-libraspberrypi-bin
-libraspberrypi-dev
 libsamplerate0
 libsdl1.2debian
 libsdl2-2.0-0
@@ -165,7 +162,6 @@ libxxf86dga1
 libxxf86vm1
 libxxf86vm-dev
 libxxhash0
-libzadc4
 libzstd1
 qtbase5-dev
 x11proto-dev
