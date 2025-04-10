@@ -1,38 +1,51 @@
 OS package versions
-updated 2024-08-05
+updated 2025-04-11
 
-Debian 10 Buster
-deb-kernel 4.19
-rpi-kernel 5.10
-binutils 2.31
-gcc 8.3
-glibc 2.28
-gdb 8.2
-expat 2.2
-gettext 0.19
-gmp 6.1
-sdl 2.0.9
-
-Debian 11 Bullseye
-deb-kernel 5.10
-rpi-kernel 6.1
-binutils 2.35
-gcc 10.2
-glibc 2.31
-gdb 10.1
-expat 2.2
-gettext 0.21
-gmp 6.2
-sdl 2.0.14
+Debian 13 Trixie
+deb-kernel 6.12   https://packages.debian.org/trixie/linux-image-arm64
+rpi-kernel 6.12
+binutils   2.44   https://packages.debian.org/trixie/binutils
+gcc        14.2   https://packages.debian.org/trixie/gcc
+glibc      2.41   https://packages.debian.org/trixie/libc6
+gdb        16.2   https://packages.debian.org/trixie/gdb
+expat      2.7    https://packages.debian.org/trixie/expat
+gettext    0.23   https://packages.debian.org/trixie/gettext
+gmp        6.3    https://packages.debian.org/trixie/libgmp10
+sdl2       2.32.4 https://packages.debian.org/trixie/libsdl2-2.0-0
+sdl3       3.2.10 https://packages.debian.org/trixie/libsdl3-0
 
 Debian 12 Bookworm
-deb-kernel 6.1
-rpi-kernel 6.6
-binutils 2.40
-gcc 12.2
-glibc 2.36
-gdb 13.1
-expat 2.5
-gettext 0.21
-gmp 6.2
-sdl 2.26.5
+deb-kernel 6.1    https://packages.debian.org/bookworm/linux-image-arm64
+rpi-kernel 6.12
+binutils   2.40   https://packages.debian.org/bookworm/binutils
+gcc        12.2   https://packages.debian.org/bookworm/gcc
+glibc      2.36   https://packages.debian.org/bookworm/libc6
+gdb        13.1   https://packages.debian.org/bookworm/gdb
+expat      2.5    https://packages.debian.org/bookworm/expat
+gettext    0.21   https://packages.debian.org/bookworm/gettext
+gmp        6.2    https://packages.debian.org/bookworm/libgmp10
+sdl2       2.26.5 https://packages.debian.org/bookworm/libsdl2-2.0-0
+
+Debian 11 Bullseye
+deb-kernel 5.10   https://packages.debian.org/bullseye/linux-image-arm64
+rpi-kernel 6.1
+binutils   2.35   https://packages.debian.org/bullseye/binutils
+gcc        10.2   https://packages.debian.org/bullseye/gcc
+glibc      2.31   https://packages.debian.org/bullseye/libc6
+gdb        10.1   https://packages.debian.org/bullseye/gdb
+expat      2.2    https://packages.debian.org/bullseye/expat
+gettext    0.21   https://packages.debian.org/bullseye/gettext
+gmp        6.2    https://packages.debian.org/bullseye/libgmp10
+sdl2       2.0.14 https://packages.debian.org/bullseye/libsdl2-2.0-0
+
+Debian 10 Buster (<= MAME 0.264)
+deb-kernel 4.19  https://packages.debian.org/buster/linux-image-arm64
+rpi-kernel 5.10
+binutils   2.31  https://packages.debian.org/buster/binutils
+gcc        8.3   https://packages.debian.org/buster/gcc
+glibc      2.28  https://packages.debian.org/buster/libc6
+gdb        8.2   https://packages.debian.org/buster/gdb
+expat      2.2   https://packages.debian.org/buster/expat
+gettext    0.19  https://packages.debian.org/buster/gettext
+gmp        6.1   https://packages.debian.org/buster/libgmp10
+sdl2       2.0.9 https://packages.debian.org/buster/libsdl2-2.0-0
