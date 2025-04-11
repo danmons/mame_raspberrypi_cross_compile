@@ -23,11 +23,11 @@ This project supports building the following versions of MAME:
 
 ## Software versions supported
 
-This repo always aims to build the latest stable release of MAME on the latest stable release of Debian Linux (currently Debian 12 Bookworm, released June 2023).  
+This repo always aims to build the latest stable release of MAME on the latest stable release of Debian Linux . Currently that's Debian 12 Bookworm, released June 2023, with Debian 13 Trixie coming later in 2025. 
 
 Support for older releases of either will come down to what software was provided by those distros, and the build-time and run-time requirements of MAME. 
 
-At time of writing, Debian 11 Bullseye and Debian 12 Bookworm environments both build and run the latest stable MAME. 
+At time of writing, Debian 11 Bullseye, Debian 12 Bookworm and Debian 13 Trixie environments all build and run the latest stable MAME. 
 
 Debian 10 Buster will only work with up to and including MAME 0.264 (released March 2024).  Versions after this introduced a minimum requirement of SDL 2.0.14 and GCC 10.3, which require substantial manual and unsupported modifications to Debian 10 Buster installs.  Additionally, Debian 10 Buster fell out of direct support from the Debian developers as of September 2022, and out of LTS support by volunteer security developers June 2024.  It is recommended that users upgrade to a more recent distro.  However, the legacy build tools for that system will remain in this repo for the time being, and will likely be removed when Debian 13 Trixie reaches stable release. 
 
@@ -61,9 +61,10 @@ Mandatory arguments:
   * `prepare` : Prepare the crosstool-ng environment
   * `compile` : Compile your chosen MAME version/fork
 * `-r` : Debian release to target for compatibility.  Must be one of:
-  * `10` or `buster` , with gcc 8 and glibc 2.28 (up to MAME 0.264)
-  * `11` or `bullseye` , with gcc 10 and glibc 2.31
+  * `13` or `trixie` , with gcc 14 and glibc 2.41
   * `12` or `bookworm` , with gcc 12 and glibc 2.36
+  * `11` or `bullseye` , with gcc 10 and glibc 2.31
+  * `10` or `buster` , with gcc 8 and glibc 2.28 (MAME 0.264 or older)
 * `-a` : the architecture to target.  Must be one of:
   * `arm`, `armhf` or `arm32` -  32bit ARM with hardfloat/FPU (older ARM processors without a hardware floating point unit are not supported)
   * `arm64` or `aarch64` - 64bit ARM

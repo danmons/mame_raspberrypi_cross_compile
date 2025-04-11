@@ -18,9 +18,10 @@ echo ''
 
 echo '-r   Specify the Debian release to target for compatibility'
 echo '     Can be one of:'
-echo '     * 10 or buster   (gcc 8 , glibc 2.28)'
-echo '     * 11 or bullseye (gcc 10, glibc 2.31)'
+echo '     * 13 or trixie   (gcc 14, glibc 2.41)'
 echo '     * 12 or bookworm (gcc 12, glibc 2.36)'
+echo '     * 11 or bullseye (gcc 10, glibc 2.31)'
+echo '     * 10 or buster   (gcc 8 , glibc 2.28, MAME 0.264 or older only)'
 echo "     If you aren't using Debian, choose the release that best matches your gcc/glibc versions without going over."
 echo '     The latest stable release of Debian is recommended if your hardware supports it.'
 echo '     Some very old hardware requires older releases,'
