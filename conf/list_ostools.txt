@@ -7,7 +7,7 @@ rpi-kernel 6.12
 binutils   2.44   https://packages.debian.org/trixie/binutils
 gcc        14.2   https://packages.debian.org/trixie/gcc
 glibc      2.41   https://packages.debian.org/trixie/libc6
-gdb        16.2   https://packages.debian.org/trixie/gdb
+gdb        16.3   https://packages.debian.org/trixie/gdb
 expat      2.7    https://packages.debian.org/trixie/expat
 gettext    0.23   https://packages.debian.org/trixie/gettext
 gmp        6.3    https://packages.debian.org/trixie/libgmp10
