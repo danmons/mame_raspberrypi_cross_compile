@@ -75,6 +75,8 @@ do
         arm32)   APTARCH=armhf ; LINARCH=arm-linux-gnueabihf ;;
         arm64)   APTARCH=arm64 ; LINARCH=aarch64-linux-gnu ;;
         aarch64) APTARCH=arm64 ; LINARCH=aarch64-linux-gnu ;;
+        riscv)   APTARCH=riscv64 ; LINARCH=riscv64-linux-gnu ;;
+        riscv64) APTARCH=riscv64 ; LINARCH=riscv64-linux-gnu ;;
         *) echo "Invalid architecture: -a ${OPTARG}" ; help_short ; exit 1 ;;
       esac
       ;;
