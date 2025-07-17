@@ -176,6 +176,12 @@ then
   CTNGVER="1.27.0"
 fi
 
+## RISC-V needs newer ctng due to gcc changes
+if [ "${APTARCH}" == "riscv64" ]
+then
+  CTNGVER="master"
+fi
+
 DSTR="debian_${DEBVER}_${DEBREL}_${APTARCH}"
 
 source "${DIR_FUNC}/${OPERATION}"

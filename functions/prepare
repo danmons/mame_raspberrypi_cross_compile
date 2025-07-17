@@ -28,7 +28,12 @@ then
   echo 'and re-run this tool.'
 else
   cd "${DIR_SRC}/crosstool-ng" || exit 1
-  git checkout crosstool-ng-${CTNGVER}
+  if [ "${CTNGVER}" == "master" ]
+  then
+    git checkout master
+  else
+    git checkout crosstool-ng-${CTNGVER}
+  fi
   ./bootstrap
   ./configure --prefix="${DIR_BUILD}/ctng/${CTNGVER}"
   make -j $(nproc) install

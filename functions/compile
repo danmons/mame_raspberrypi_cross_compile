@@ -9,7 +9,32 @@ export QT_SELECT=5
 ## Find cross-compile tools
 GCCBIN=$( ls -1d ${DIR_BUILD}/x-tools/${DSTR}/bin/*-gcc )
 GPPBIN=$( ls -1d ${DIR_BUILD}/x-tools/${DSTR}/bin/*-g++ )
-LDBIN=$(  ls -1d ${DIR_BUILD}/x-tools/${DSTR}/bin/*-ld.gold )
+ARBIN=$(  ls -1d ${DIR_BUILD}/x-tools/${DSTR}/bin/*-gnu-ar )
+
+## Set per-arch tools
+case ${APTARCH} in
+armhf)
+  MAMEPLATFORM=arm
+  LDBIN=$( ls -1d ${DIR_BUILD}/x-tools/${DSTR}/bin/*-ld.gold )
+  CUSTOMLDFLAGS=" -fuse-ld=gold -Wl,--long-plt"
+  CUSTOMCFLAGS=" -fsigned-char"
+  ;;
+arm64)
+  MAMEPLATFORM=arm64
+  LDBIN=$( ls -1d ${DIR_BUILD}/x-tools/${DSTR}/bin/*-ld.gold )
+  CUSTOMLDFLAGS=" -fuse-ld=gold"
+  CUSTOMCFLAGS=" -fsigned-char"
+  ;;
+riscv64)
+  MAMEPLATFORM=riscv64
+  LDBIN=$( ls -1d ${DIR_BUILD}/x-tools/${DSTR}/bin/*-ld )
+  #CUSTOMCPPFLAGS=" -mcmodel=medany"
+  ;;
+*)
+  echo "Error: unknown architecture ${APTARCH}"
+  exit 1
+  ;;
+esac
 
 ## Set linker path
 MLIB="${DIR_LIB}/${DSTR}"
@@ -73,17 +98,6 @@ echo "Building MAME"
 
 cd "${DIR_BUILD}/src/${MAMEFORK}" || exit 1
 
-if [ "${APTARCH}" == armhf ]
-then
-  MAMEPLATFORM=arm
-elif [ "${APTARCH}" == arm64 ]
-then
-  MAMEPLATFORM=arm64
-else
-  echo "Unable to build for platform ${APTARCH}"
-  exit 1
-fi
-
 echo "Source code for ${MAMEFORK} version ${MAMETAG} ready to be compiled for ${DSTR}"
 
 mkdir -p "${DIR_BUILD}/output"
@@ -100,13 +114,7 @@ echo "Compiling with"
 echo "gcc : ${GCCBIN}"
 echo "g++ : ${GPPBIN}"
 echo "ld  : ${LDBIN}"
-
-CUSTOMLDFLAGS=""
-
-if [ "${APTARCH}" == "armhf" ]
-then
-  CUSTOMLDFLAGS+=" -Wl,--long-plt"
-fi
+echo "ar  : ${ARBIN}"
 
 make clean
 
@@ -120,17 +128,16 @@ make \
  CFLAGS+=" -I ${MLIB}/usr/include/${LINARCH}" \
  CFLAGS+=" -L ${MLIB}/usr/lib" \
  CFLAGS+=" -L ${MLIB}/usr/lib/${LINARCH}" \
- CFLAGS+=" -fsigned-char" \
  CFLAGS+=" -U_FORTIFY_SOURCE" \
+ CFLAGS+=" ${CUSTOMCFLAGS}" \
  CPPFLAGS+=" -I ${MLIB}/usr/include" \
  CPPFLAGS+=" -I ${MLIB}/usr/include/${LINARCH}" \
  CPPFLAGS+=" -L ${MLIB}/usr/lib" \
  CPPFLAGS+=" -L ${MLIB}/usr/lib/${LINARCH}" \
- CPPFLAGS+=" -fsigned-char" \
  CPPFLAGS+=" -U_FORTIFY_SOURCE" \
+ CPPFLAGS+=" ${CUSTOMCFLAGS}" \
  LDFLAGS+=" -L ${MLIB}/usr/lib" \
  LDFLAGS+=" -L ${MLIB}/usr/lib/${LINARCH}" \
- LDFLAGS+=" -fuse-ld=gold" \
  LDFLAGS+=" ${CUSTOMLDFLAGS}" \
  ARCHOPTS+=" -Wl,-R,${MLIB}/usr/lib" \
  ARCHOPTS+=" -Wl,-R,${MLIB}/usr/lib/${LINARCH}" \
@@ -154,6 +161,7 @@ make \
  OVERRIDE_CC="${GCCBIN}" \
  OVERRIDE_LD="${LDBIN}" \
  OVERRIDE_CXX="${GPPBIN}" \
+ OVERRIDE_AR="${ARBIN}" \
  -j${CPUS}
 
 
