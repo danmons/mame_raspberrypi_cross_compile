@@ -30,18 +30,22 @@ echo "deb ${RPIMIRROR} ${DEBREL} main" >>"${SL}"
 echo "${APTARCH}" > "${DIR_APT}/var/lib/dpkg/arch"
 
 cat > "${DIR_APT}/usr/share/dpkg/cputable" << EOF
-arm    arm      arm.*    32  little
-arm64  aarch64  aarch64  64  little
+armeb           armeb           arm.*b                  32      big
+arm             arm             arm.*                   32      little
+arm64           aarch64         aarch64                 64      little
+riscv64         riscv64         riscv64                 64      little
 EOF
 
 cat > "${DIR_APT}/usr/share/dpkg/tupletable" << EOF
 eabi-uclibc-linux-arm           uclibc-linux-armel
 eabihf-musl-linux-arm           musl-linux-armhf
-ilp32-gnu-linux-arm64           arm64ilp32
 eabihf-gnu-linux-arm            armhf
 eabi-gnu-linux-arm              armel
-eabihf-gnu-kfreebsd-arm         kfreebsd-armhf
-eabi-uclibc-uclinux-arm         uclinux-armel
+base-bsd-freebsd-arm            freebsd-arm
+base-bsd-freebsd-arm64          freebsd-arm64
+base-bsd-freebsd-riscv          freebsd-riscv
+base-bsd-darwin-arm             darwin-arm
+base-bsd-darwin-arm64           darwin-arm64
 EOF
 
 # Ensure status file exists
