@@ -72,6 +72,12 @@ libsdl2-2.0-0
 libsdl2-dev
 libsdl2-ttf-2.0-0
 libsdl2-ttf-dev
+libsdl3-0
+libsdl3-dev
+libsdl3-image0
+libsdl3-image-dev
+libsdl3-ttf0
+libsdl3-ttf-dev
 libsdl-image1.2
 libsdl-mixer1.2
 libsdl-ttf2.0-0
