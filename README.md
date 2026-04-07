@@ -29,7 +29,9 @@ Support for older releases of either will come down to what software was provide
 
 At time of writing, Debian 13 Trixie and Debian 12 Bookworm environments build and run the latest stable MAME. Debian 11 Bullseye is in sunset and will be deprecated by this project over time. 
 
-Debian 10 Buster will only work with up to and including MAME 0.264 (released March 2024).  Versions after this introduced a minimum requirement of SDL 2.0.14 and GCC 10.3, which require substantial manual and unsupported modifications to Debian 10 Buster installs.  Additionally, Debian 10 Buster fell out of direct support from the Debian developers as of September 2022, and out of LTS support by volunteer security developers June 2024.  It is recommended that users upgrade to a more recent distro.  However, the legacy build tools for that system will remain in this repo for the time being, and will likely be removed soon. 
+Debian 10 Buster will only work with up to and including MAME 0.264 (released March 2024).  Versions after this introduced a minimum requirement of SDL 2.0.14 and GCC 10.3, which require substantial manual and unsupported modifications to Debian 10 Buster installs.  
+
+Debian 11 Bullseye will only work with up to and including MAME 0.287 (released March 2026). Versions after this require a minimum of GCC 11 an associated tools. 
 
 Non-Debian distros will very likely run these builds, as long as their internal software is the same or newer than the Debian versions specified.  For a list of the software versions needed, see [conf/list_ostools.txt](conf/list_ostools.txt). 
 
@@ -64,7 +66,7 @@ Mandatory arguments:
 * `-r` : Debian release to target for compatibility.  Must be one of:
   * `13` or `trixie` , with gcc 14 and glibc 2.41
   * `12` or `bookworm` , with gcc 12 and glibc 2.36
-  * `11` or `bullseye` , with gcc 10 and glibc 2.31
+  * `11` or `bullseye` , with gcc 10 and glibc 2.31 (MAME 0.287 or older)
   * `10` or `buster` , with gcc 8 and glibc 2.28 (MAME 0.264 or older)
 * `-a` : the architecture to target.  Must be one of:
   * `arm`, `armhf` or `arm32` -  32bit ARM with hardfloat/FPU (older ARM processors without a hardware floating point unit are not supported)
