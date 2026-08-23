@@ -4,7 +4,9 @@ compile(){
 unset LD_LIBRARY_PATH
 
 # force qt5
-export QT_SELECT=5
+#export QT_SELECT=5
+export USE_QTDEBUG=0
+export SYMBOLS=0
 
 ## Find cross-compile tools
 GCCBIN=$( ls -1d ${DIR_BUILD}/x-tools/${DSTR}/bin/*-gcc | head -n1 )
@@ -15,15 +17,17 @@ ARBIN=$(  ls -1d ${DIR_BUILD}/x-tools/${DSTR}/bin/*-ar  | head -n1 )
 case ${APTARCH} in
 armhf)
   MAMEPLATFORM=arm
-  LDBIN=$( ls -1d ${DIR_BUILD}/x-tools/${DSTR}/bin/*-ld.gold )
-  CUSTOMLDFLAGS=" -fuse-ld=gold -Wl,--long-plt"
-  CUSTOMCFLAGS=" -fsigned-char"
+  #LDBIN=$( ls -1d ${DIR_BUILD}/x-tools/${DSTR}/bin/*-ld.gold )
+  CUSTOMARCHOPTS=" -Wl,--stub-group-size=1"
+  #CUSTOMCFLAGS=" -fsigned-char -mcmodel=large -fno-pic"
+  LDBIN=$( ls -1d ${DIR_BUILD}/x-tools/${DSTR}/bin/*-ld )
   ;;
 arm64)
   MAMEPLATFORM=arm64
-  LDBIN=$( ls -1d ${DIR_BUILD}/x-tools/${DSTR}/bin/*-ld.gold )
-  CUSTOMLDFLAGS=" -fuse-ld=gold"
-  CUSTOMCFLAGS=" -fsigned-char"
+  #LDBIN=$( ls -1d ${DIR_BUILD}/x-tools/${DSTR}/bin/*-ld.gold )
+  #CUSTOMLDFLAGS=" -fuse-ld=gold"
+  #CUSTOMCFLAGS=" -fsigned-char -mcmodel=large -fno-pic"
+  LDBIN=$( ls -1d ${DIR_BUILD}/x-tools/${DSTR}/bin/*-ld )
   ;;
 riscv64)
   MAMEPLATFORM=riscv64
@@ -119,6 +123,8 @@ echo "ar  : ${ARBIN}"
 make clean
 
 make \
+ USE_QTDEBUG=0 \
+ SYMBOLS=0 \
  REGENIE=1 \
  CROSS_BUILD=1 \
  TOOLS=1 \
@@ -157,6 +163,7 @@ make \
  ARCHOPTS+=" -Wl,-rpath-link,${MLIB}/lib/${LINARCH}" \
  ARCHOPTS+=" -Wl,-rpath-link,${MLIB}/usr/lib/${LINARCH}/pulseaudio" \
  ARCHOPTS+=" -Wl,-rpath-link,${MLIB}/opt/vc/lib" \
+ ARCHOPTS+=" ${CUSTOMARCHOPTS}" \
  TARGETOS=linux \
  OVERRIDE_CC="${GCCBIN}" \
  OVERRIDE_LD="${LDBIN}" \
